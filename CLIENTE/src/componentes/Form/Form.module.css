@@ -10,30 +10,30 @@
   --borde: #bebecd;
   --texto-principal: #1a1a1a;
   --blanco: #ffffff;
-   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 * {
   box-sizing: border-box;
 }
 
-/* CONTENEDOR PRINCIPAL */
-
+/* Contenedor principal */
 .container {
   max-width: 700px;
+  width: 90%; /* Para que se reduzca en móviles */
   margin: 3rem auto;
-  background-color: var(--color-fondo-claro);
   padding: 2rem 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background-color: var(--color-fondo-claro);
   color: var(--texto-principal);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* TÍTULOS */
-
+/* Títulos */
 .h1 {
   color: var(--color-primario);
   font-size: 2.2rem;
- font-weight: 500;
+  font-weight: 500;
   text-align: center;
   margin-bottom: 1rem;
 }
@@ -47,15 +47,15 @@
   padding-bottom: 0.4rem;
 }
 
-/* FORMULARIO: CAMPOS Y LABELS */
-
+/* Formulario: Labels e Inputs */
 .label {
   display: block;
   margin-bottom: 1.5rem;
   font-weight: 600;
 }
 
-.input {
+.input,
+.select {
   width: 100%;
   padding: 0.6rem 0.75rem;
   font-size: 1rem;
@@ -66,14 +66,14 @@
   transition: border-color 0.3s ease, box-shadow 0.2s ease;
 }
 
-.input:focus {
+.input:focus,
+.select:focus {
   outline: none;
   border-color: var(--color-primario);
   box-shadow: 0 0 6px rgba(20, 36, 84, 0.25);
 }
 
-/* LISTA DE POSTULANTES */
-
+/* Lista de postulantes */
 .ul {
   list-style-type: none;
   padding: 0;
@@ -90,10 +90,10 @@
   justify-content: space-between;
   align-items: center;
   font-size: 1rem;
+  flex-wrap: wrap; /* Permite que el contenido se adapte en pantallas pequeñas */
 }
 
-/* BOTONES */
-
+/* Botones */
 .button {
   background-color: var(--color-primario);
   color: white;
@@ -163,19 +163,62 @@
   background-color: #888;
 }
 
-/* BOTÓN ENVIAR CENTRADO */
-
+/* Botón enviar centrado */
 .submitContainer {
   display: flex;
   justify-content: center;
   margin-top: 3rem;
 }
 
-/* LOGO OPCIONAL */
-
+/* Logo */
 .logo {
   max-width: 180px;
   height: auto;
   display: block;
   margin: 0 auto 1.5rem auto;
+}
+
+/* Imagen responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* === Media Queries para móviles === */
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem 1.2rem;
+    width: 95%;
+    margin: 1.5rem auto;
+  }
+
+  .h1 {
+    font-size: 1.8rem;
+  }
+
+  .h2 {
+    font-size: 1.3rem;
+  }
+
+  .li {
+    font-size: 0.95rem;
+    flex-direction: column; /* Elementos apilados */
+    align-items: flex-start;
+  }
+
+  .editButton {
+    margin-top: 0.5rem;
+  }
+
+  .button,
+  .addButton {
+    width: 100%;
+    text-align: center;
+  }
+
+  .input,
+  .select {
+    font-size: 0.95rem;
+    padding: 0.55rem 0.7rem;
+  }
 }
