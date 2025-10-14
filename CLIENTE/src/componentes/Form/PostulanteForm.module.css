@@ -1,0 +1,102 @@
+@import './Form.module.css'; /* Reutiliza las variables del formulario principal */
+* {
+  box-sizing: border-box;
+}
+
+.form {
+  border: 1px solid var(--borde);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  border-radius: 10px;
+  background-color: var(--color-fondo-claro);
+}
+
+/* TÍTULOS */
+
+.titulo {
+  color: var(--color-primario);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.subtitulo {
+  color: var(--color-secundario);
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-acento);
+  padding-bottom: 0.3rem;
+}
+
+/* CAMPOS */
+
+.label {
+  display: block;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  margin-top: 0.3rem;
+  border: 1.5px solid var(--color-acento);
+  border-radius: 8px;
+  background-color: var(--blanco);
+  transition: border-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--color-primario);
+  box-shadow: 0 0 6px rgba(20, 36, 84, 0.25);
+}
+
+/* BOTONES */
+
+.botones {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.botonGuardar {
+  background-color: var(--color-primario);
+  color: var(--blanco);
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.botonGuardar:hover:not(:disabled) {
+  background-color: var(--color-hover);
+}
+
+.botonGuardar:disabled {
+  background-color: var(--color-disabled);
+  cursor: not-allowed;
+}
+
+.botonCancelar {
+  background-color: #aaa;
+  color: var(--blanco);
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.botonCancelar:hover {
+  background-color: #888;
+}

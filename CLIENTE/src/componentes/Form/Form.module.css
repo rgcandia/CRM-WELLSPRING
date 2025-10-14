@@ -1,0 +1,178 @@
+:root {
+  --color-primario: #142454;
+  --color-secundario: #444c74;
+  --color-acento: #bebecd;
+  --color-hover: #3c446c;
+  --color-disabled: #cccccc;
+  --color-fondo-claro: #ffffff;
+  --borde: #bebecd;
+  --texto-principal: #1a1a1a;
+  --blanco: #ffffff;
+}
+* {
+  box-sizing: border-box;
+}
+
+/* CONTENEDOR PRINCIPAL */
+
+.container {
+  max-width: 700px;
+  margin: 3rem auto;
+  background-color: var(--color-fondo-claro);
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--texto-principal);
+}
+
+/* TÍTULOS */
+
+.h1 {
+  color: var(--color-primario);
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.h2 {
+  color: var(--color-secundario);
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--color-acento);
+  padding-bottom: 0.4rem;
+}
+
+/* FORMULARIO: CAMPOS Y LABELS */
+
+.label {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  margin-top: 0.3rem;
+  border: 1.5px solid var(--color-acento);
+  border-radius: 8px;
+  background-color: var(--blanco);
+  transition: border-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primario);
+  box-shadow: 0 0 6px rgba(20, 36, 84, 0.25);
+}
+
+/* LISTA DE POSTULANTES */
+
+.ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.li {
+  background-color: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+}
+
+/* BOTONES */
+
+.button {
+  background-color: var(--color-primario);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover:not(:disabled) {
+  background-color: var(--color-hover);
+}
+
+.button:disabled {
+  background-color: var(--color-disabled);
+  cursor: not-allowed;
+}
+
+.addButton {
+  margin-top: 1.5rem;
+  background-color: transparent;
+  color: var(--color-primario);
+  border: 2px solid var(--color-primario);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.addButton:hover {
+  background-color: var(--color-primario);
+  color: white;
+}
+
+.editButton {
+  background-color: var(--color-acento);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  color: var(--color-primario);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.editButton:hover {
+  background-color: var(--color-secundario);
+  color: white;
+}
+
+.cancelButton {
+  background-color: #aaa;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancelButton:hover {
+  background-color: #888;
+}
+
+/* BOTÓN ENVIAR CENTRADO */
+
+.submitContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+/* LOGO OPCIONAL */
+
+.logo {
+  max-width: 180px;
+  height: auto;
+  display: block;
+  margin: 0 auto 1.5rem auto;
+}
