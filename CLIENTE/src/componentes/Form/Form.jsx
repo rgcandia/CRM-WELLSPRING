@@ -71,7 +71,7 @@ export default function Form() {
         <ul className={styles.ul}>
           {postulantes.map((p, i) => (
             <li key={i} className={styles.li}>
-              <strong>Postulante #{i + 1}</strong>: {p.nombreApellido} – {p.nivel} – {p.salaInicial || p.gradoPrimaria || p.anioSecundaria}
+              <strong>Postulante #{i + 1}</strong> {p.nombreApellido} – {p.nivel} – {p.salaInicial || p.gradoPrimaria || p.anioSecundaria}
               <button
                 className={styles.editButton}
                 onClick={() => {
