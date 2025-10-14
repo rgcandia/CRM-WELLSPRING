@@ -56,7 +56,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
 
   return (
     <form onSubmit={handleSubmit} className={style.form}>
-      <h3 className={style.titulo}>POSTULANTE #{postulanteNumber} - INDICAR NIVEL </h3>
+      <h3 className={style.titulo}>POSTULANTE #{postulanteNumber} </h3>
 
       <label className={style.label}>
         Nivel:
