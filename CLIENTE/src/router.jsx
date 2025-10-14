@@ -9,7 +9,7 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path:'formulario',
+    path:'/formulario',
     element:<Form/>
   }
 
