@@ -1,6 +1,8 @@
 @import './Form.module.css'; /* Reutiliza las variables del formulario principal */
+
 * {
   box-sizing: border-box;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .form {
@@ -9,6 +11,10 @@
   margin-top: 1.5rem;
   border-radius: 10px;
   background-color: var(--color-fondo-claro);
+  max-width: 600px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* TÍTULOS */
@@ -64,17 +70,23 @@
   display: flex;
   justify-content: flex-start;
   gap: 1rem;
+  flex-wrap: wrap; /* Para que se adapten en móviles */
+}
+
+.botonGuardar,
+.botonCancelar {
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 120px;
 }
 
 .botonGuardar {
   background-color: var(--color-primario);
   color: var(--blanco);
   border: none;
-  padding: 0.7rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .botonGuardar:hover:not(:disabled) {
@@ -90,13 +102,43 @@
   background-color: #aaa;
   color: var(--blanco);
   border: none;
-  padding: 0.7rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .botonCancelar:hover {
   background-color: #888;
+}
+
+/* === Media Queries para móviles === */
+@media (max-width: 600px) {
+  .form {
+    padding: 1rem 1.2rem;
+    margin-top: 1rem;
+  }
+
+  .titulo {
+    font-size: 1.1rem;
+  }
+
+  .subtitulo {
+    font-size: 1rem;
+  }
+
+  .input,
+  .select {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .botones {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .botonGuardar,
+  .botonCancelar {
+    width: 100%;
+    text-align: center;
+    font-size: 0.95rem;
+    padding: 0.6rem 0;
+  }
 }
