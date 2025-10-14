@@ -1,11 +1,10 @@
 import './App.css'
+import EnConstruccion from './componentes/EnConstruccion/EnConstruccion'
 
 function App() {
-
-
   return (
     <>
-   <h1>Hola Mundo</h1>
+      <EnConstruccion />
     </>
   )
 }

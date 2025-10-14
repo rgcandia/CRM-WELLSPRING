@@ -1,0 +1,22 @@
+.construccionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #142454;
+  background-color: #f5f6fa;
+}
+
+.construccionContainer h1 {
+  font-size: 2rem;
+  margin: 1rem 0 0.5rem;
+  font-weight: 600;
+}
+
+.construccionContainer p {
+  font-size: 1.1rem;
+  color: #444c74;
+}
