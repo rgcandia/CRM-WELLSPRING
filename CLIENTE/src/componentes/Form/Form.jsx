@@ -34,7 +34,7 @@ export default function Form() {
       <div>
         <img src='/large_interno_wellspring.png' alt='logo del colegio wellspring'/>
       </div>
-      <h1 className={styles.h1}>Formulario de Admision</h1>
+      <h1 className={styles.h1}>Formulario de Admisión</h1>
       <p>Muchas gracias por su contacto. Por favor completá los datos solicitados. Nos comunicaremos a la brevedad.</p>
 
       <h2 className={styles.h2}>Información general</h2>
