@@ -56,7 +56,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
 
   return (
     <form onSubmit={handleSubmit} className={style.form}>
-      <h3 className={style.titulo}>POSTULANTE #{postulanteNumber} - INDICAR NIVEL *</h3>
+      <h3 className={style.titulo}>POSTULANTE #{postulanteNumber} - INDICAR NIVEL </h3>
 
       <label className={style.label}>
         Nivel:
@@ -80,7 +80,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
 
       {nivel === 'INICIAL' && (
         <label className={style.label}>
-          A qué sala ingresa? *
+          A qué sala ingresa?:
           <select
             value={salaInicial}
             onChange={(e) => setSalaInicial(e.target.value)}
@@ -99,7 +99,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
 
       {nivel === 'PRIMARIA' && (
         <label className={style.label}>
-          A qué grado ingresa? *
+          A qué grado ingresa?:
           <select
             value={gradoPrimaria}
             onChange={(e) => setGradoPrimaria(e.target.value)}
@@ -119,7 +119,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
 
       {nivel === 'SECUNDARIA' && (
         <label className={style.label}>
-          A qué año ingresa? *
+          A qué año ingresa?:
           <select
             value={anioSecundaria}
             onChange={(e) => setAnioSecundaria(e.target.value)}
@@ -140,7 +140,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
       <h4 className={style.subtitulo}>Datos personales del postulante</h4>
 
       <label className={style.label}>
-        Nombre y Apellido *
+        Nombre y Apellido:
         <input
           type="text"
           value={nombreApellido}
@@ -151,7 +151,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
       </label>
 
       <label className={style.label}>
-        Fecha de Nacimiento *
+        Fecha de Nacimiento:
         <input
           type="date"
           value={fechaNacimiento}
@@ -162,7 +162,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
       </label>
 
       <label className={style.label}>
-        Jardín/Colegio al que asiste *
+        Jardín/Colegio al que asiste:
         <input
           type="text"
           value={colegioActual}
@@ -175,7 +175,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
       <h4 className={style.subtitulo}>Datos de contacto de los progenitores</h4>
 
       <label className={style.label}>
-        Nombre y Apellido progenitor/a 1 *
+        Nombre y Apellido progenitor/a 1:
         <input
           type="text"
           value={nombreProgenitor1}
@@ -186,7 +186,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
       </label>
 
       <label className={style.label}>
-        Celular de contacto *
+        Celular de contacto:
         <input
           type="tel"
           value={celularProgenitor1}
@@ -197,7 +197,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
       </label>
 
       <label className={style.label}>
-        Nombre y Apellido progenitor/a 2 *
+        Nombre y Apellido progenitor/a 2:
         <input
           type="text"
           value={nombreProgenitor2}
@@ -208,7 +208,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
       </label>
 
       <label className={style.label}>
-        Celular de contacto *
+        Celular de contacto:
         <input
           type="tel"
           value={celularProgenitor2}
