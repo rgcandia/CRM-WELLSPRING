@@ -51,7 +51,6 @@
   place-items: center;
   font-weight: 700;
   margin: 5px;
-  background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
   color: var(--blanco);
 }
 
