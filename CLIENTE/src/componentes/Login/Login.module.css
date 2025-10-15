@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-    background-color: var(--color-fondo-claro);
+     background-color: rgb(246, 246, 246); /* Fondo gris claro */
   padding: 32px;
   font-family: 'Inter', sans-serif;
 }

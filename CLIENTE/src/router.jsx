@@ -19,9 +19,7 @@ const router = createBrowserRouter([
   {
     path: '/formulario',
     element: (
-      <ProtectedRoute>
         <Form />
-      </ProtectedRoute>
     ),
   },
   {
