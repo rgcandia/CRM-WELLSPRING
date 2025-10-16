@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PostulanteForm from './PostulanteForm.jsx';
 import styles from './Form.module.css'
+import {showError,showSuccess} from '../../toast.js'
 export default function Form() {
   const [email, setEmail] = useState('');
   const [ciclo, setCiclo] = useState('');
@@ -26,7 +27,33 @@ export default function Form() {
 
   // Condición para habilitar el botón Enviar
   const puedeEnviar = postulantes.length > 0 && email.trim() !== '' && ciclo !== '';
+// funcion enviar
+const handleEnviar = async () => {
+  const url = `${import.meta.env.VITE_API_URL}/formulario`;
 
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, ciclo, postulantes }),
+    });
+
+    if (!response.ok) throw new Error(`Error del servidor: ${response.statusText}`);
+
+    const data = await response.json();
+    console.log('Respuesta del servidor:', data);
+
+    showSuccess('Formulario enviado correctamente'); // ✅ Toast success
+
+    // Limpiar formulario
+    setEmail('');
+    setCiclo('');
+    setPostulantes([]);
+  } catch (err) {
+    console.error(err);
+    showError('Hubo un error al enviar el formulario'); // ❌ Toast error
+  }
+};
 
 
   return (
@@ -118,10 +145,7 @@ export default function Form() {
   <button
     type="button"
     disabled={!puedeEnviar}
-    onClick={() => {
-      console.log('Enviar formulario:', { email, ciclo, postulantes });
-      alert('Formulario enviado correctamente.');
-    }}
+    onClick={handleEnviar}
     className={styles.button}
   >
     Enviar
