@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
 import App from './App.jsx';
 import Form from './componentes/Form/Form.jsx';
 import Error404 from './componentes/Error404/Error404.jsx';
@@ -14,8 +13,7 @@ const router = createBrowserRouter([
         <App />
       </ProtectedRoute>
     ),
-    errorElement: <Error404 />,
-  },
+    errorElement: <Error404 />, },
   {
     path: '/formulario',
     element: (
