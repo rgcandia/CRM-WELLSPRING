@@ -4,7 +4,8 @@ const express =  require('express');
 const morgan =  require('morgan');
 const cors = require('cors');
 const http =  require('http');
-const initialSocket = require('./socket.js')
+const initialSocket = require('./socket.js');
+const routes = require('./routes/index.js');
 // instancias
 const app = express();
 app.name = 'Tunrnos ART';
@@ -18,8 +19,10 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     next();
   });
-  const httpServer = http.createServer(app)
+  // 👇 ahora las rutas van directo, sin prefijo
+app.use('/', routes);
+const httpServer = http.createServer(app)
   //inicio socket con el servidor http
-  initialSocket(httpServer);
+initialSocket(httpServer);
     //export
-  module.exports =httpServer ;
+module.exports =httpServer ;
