@@ -1,16 +1,24 @@
 const { Router } = require('express');
 const router = Router();
+const { Formulario } = require('../db.js'); // <-- importá tu modelo
 
 // Ruta POST /formulario
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const form = req.body;
-  console.log('📩 Formulario recibido:', form);
 
-  // Podés verificar qué te llega
-  // console.log('Email:', form.email);
-  // console.log('Nombre:', form.nombre);
+  try {
+    // Guardar en la base de datos
+    await Formulario.create({
+      id: form.email,   // usamos el email como id
+      data: form        // todo el JSON se guarda en "data"
+    });
 
-  res.status(200).json({ message: 'Formulario recibido correctamente' });
+    console.log('📩 Formulario recibido y guardado:', form);
+    res.status(200).json({ message: 'Formulario guardado correctamente' });
+  } catch (err) {
+    console.error('Error al guardar el formulario:', err);
+    res.status(500).json({ error: 'No se pudo guardar el formulario' });
+  }
 });
 
 module.exports = router;
