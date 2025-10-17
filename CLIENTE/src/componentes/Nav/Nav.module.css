@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-primario: #142454;
+  --color-secundario: #444c74;
+  --color-acento: #bebecd;
+  --color-hover: #3c446c;
+  --color-disabled: #cccccc;
+  --color-fondo-claro: #ffffff;
+  --borde: #bebecd;
+  --texto-principal: #1a1a1a;
+  --blanco: #ffffff;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: var(--color-fondo-claro);
+  color: var(--texto-principal);
+  font-family: 'Inter', sans-serif;
+  border-bottom: 1px solid var(--borde);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  height: 60px; /* más grande */
+  width: auto;
+  object-fit: contain;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-primario);
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-weight: 500;
+  color: var(--texto-principal);
+}
+
+.userName {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+}
+
+.logoutButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: var(--color-primario); /* azul */
+  border: 1px solid var(--color-primario);
+  border-radius: 6px;
+  color: var(--blanco);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logoutButton svg {
+  vertical-align: middle;
+}
+
+.logoutButton:hover {
+  background-color: var(--color-disabled); /* gris claro */
+  color: var(--color-primario); /* texto azul */
+  border-color: var(--color-disabled);
+}

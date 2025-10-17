@@ -4,7 +4,7 @@ import Form from './componentes/Form/Form.jsx';
 import Error404 from './componentes/Error404/Error404.jsx';
 import Login from './componentes/Login/Login.jsx'; // <-- importa tu login
 import ProtectedRoute from './componentes/ProtectedRoute/ProtectedRoute.jsx'; // <-- protege las rutas
-
+import PublicRoute from './componentes/PublicRoute/PublicRoute.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -22,7 +22,9 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <Login />,
+    element:  <PublicRoute>
+        <Login />
+      </PublicRoute>
   },
 ]);
 

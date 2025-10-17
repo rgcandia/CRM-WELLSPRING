@@ -2,17 +2,15 @@
 import React, { useState } from 'react';
 import styles from './Login.module.css';
 
-export default function Login({ onLogin } = {}) {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const validate = () => {
     if (!email) return 'El email es requerido.';
-    // simple email check
-    const re = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    const re = /^[^@\s]+@[^@\s]+\.[^\s@]+$/;
     if (!re.test(email)) return 'Ingresa un email válido.';
     if (!password) return 'La contraseña es requerida.';
     if (password.length < 6) return 'La contraseña debe tener al menos 6 caracteres.';
@@ -22,21 +20,34 @@ export default function Login({ onLogin } = {}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    const v = validate();
-    if (v) return setError(v);
+
+    const validationError = validate();
+    if (validationError) return setError(validationError);
 
     setLoading(true);
-    try {
-      // Simula llamada a API. Reemplazá con tu llamada real.
-      await new Promise((res) => setTimeout(res, 1400));
 
-      // Si querés, enviá los datos al callback del padre
-      if (typeof onLogin === 'function') {
-        onLogin({ email, remember });
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Muestra el error del servidor si lo hay
+        return setError(data.message || 'Error al iniciar sesión.');
       }
 
-      // Aquí podrías redirigir o mostrar éxito — lo dejamos manejable por el prop onLogin
+      // Guardar token y datos del usuario en localStorage
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+
+      // Redirigir a la ruta protegida
+      window.location.href = '/';
     } catch (err) {
+      console.error(err);
       setError('No se pudo iniciar sesión. Intentá de nuevo.');
     } finally {
       setLoading(false);
@@ -47,7 +58,9 @@ export default function Login({ onLogin } = {}) {
     <div className={styles.page}>
       <form className={styles.card} onSubmit={handleSubmit} noValidate>
         <div className={styles.brand}>
-          <div className={styles.logo} aria-hidden><img src='./escudo.png'/></div>
+          <div className={styles.logo} aria-hidden>
+            <img src='./escudo.png' />
+          </div>
           <h1 className={styles.title}>Iniciar sesión</h1>
           <p className={styles.subtitle}>Accedé a tu cuenta de forma segura</p>
         </div>
@@ -80,7 +93,6 @@ export default function Login({ onLogin } = {}) {
           />
         </label>
 
-
         <button
           className={styles.primaryButton}
           type="submit"
@@ -96,11 +108,7 @@ export default function Login({ onLogin } = {}) {
             <span className={styles.btnText}>Enviar</span>
           )}
         </button>
-
-
-   
       </form>
     </div>
   );
 }
-
