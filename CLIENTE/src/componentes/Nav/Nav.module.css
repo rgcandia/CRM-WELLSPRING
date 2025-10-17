@@ -13,16 +13,22 @@
 }
 
 .navbar {
+  position: fixed; /* 👈 Agregado */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  z-index: 1000; /* Para que esté por encima del Sidebar */
+  background-color: var(--color-fondo-claro);
+  color: var(--texto-principal);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 24px;
-  background-color: var(--color-fondo-claro);
-  color: var(--texto-principal);
-  font-family: 'Inter', sans-serif;
   border-bottom: 1px solid var(--borde);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
+
 
 .logoContainer {
   display: flex;
