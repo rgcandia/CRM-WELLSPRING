@@ -62,7 +62,7 @@ const esEmailValido = (email) => {
       const data = await response.json();
       console.log('Respuesta del servidor:', data);
 
-      showSuccess('Formulario enviado correctamente ✅');
+      showSuccess('Formulario enviado correctamente');
 
       // limpiar formulario
       setEmail('');
@@ -70,7 +70,7 @@ const esEmailValido = (email) => {
       setPostulantes([]);
     } catch (err) {
       console.error(err);
-      showError('Hubo un error al enviar el formulario ❌');
+      showError('Hubo un error al enviar el formulario');
     } finally {
       setLoading(false);
     }
