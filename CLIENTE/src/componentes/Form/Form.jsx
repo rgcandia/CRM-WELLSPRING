@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import PostulanteForm from './PostulanteForm.jsx';
-import styles from './Form.module.css'
-import {showError,showSuccess} from '../../toast.js'
+import styles from './Form.module.css';
+import { showError, showSuccess } from '../../toast.js';
+
 export default function Form() {
   const [email, setEmail] = useState('');
   const [ciclo, setCiclo] = useState('');
-
   const [postulantes, setPostulantes] = useState([]);
   const [adding, setAdding] = useState(false);
-
   const [editingIndex, setEditingIndex] = useState(null);
   const [editingData, setEditingData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleAddPostulante = (data) => {
     setPostulantes(prev => [...prev, data]);
@@ -25,41 +25,61 @@ export default function Form() {
     setEditingData(null);
   };
 
-  // Condición para habilitar el botón Enviar
   const puedeEnviar = postulantes.length > 0 && email.trim() !== '' && ciclo !== '';
-// funcion enviar
-const handleEnviar = async () => {
-  const url = `${import.meta.env.VITE_API_URL}/formulario`;
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, ciclo, postulantes }),
-    });
-
-    if (!response.ok) throw new Error(`Error del servidor: ${response.statusText}`);
-
-    const data = await response.json();
-    console.log('Respuesta del servidor:', data);
-
-    showSuccess('Formulario enviado correctamente'); // ✅ Toast success
-
-    // Limpiar formulario
-    setEmail('');
-    setCiclo('');
-    setPostulantes([]);
-  } catch (err) {
-    console.error(err);
-    showError('Hubo un error al enviar el formulario'); // ❌ Toast error
-  }
+// 🔍 función auxiliar para validar email
+const esEmailValido = (email) => {
+  // Explicación:
+  // ^[^\s@]+     → al menos un carácter antes del @ (sin espacios)
+  // @            → debe tener un @
+  // [^\s@]+      → al menos un carácter después del @
+  // \.           → debe tener un punto literal
+  // [a-zA-Z0-9-]+$ → y al menos una palabra después del punto (.com, .ar, .org, etc.)
+  const regex = /^[^\s@]+@[^\s@]+\.[a-zA-Z0-9-]+$/;
+  return regex.test(email);
 };
 
+
+  // 📨 Envío del formulario con validación de email + loader
+  const handleEnviar = async () => {
+    if (!esEmailValido(email)) {
+      showError('Por favor, ingresá un correo electrónico válido : ejemplo@dominio.com');
+      return;
+    }
+
+    const url = `${import.meta.env.VITE_API_URL}/formulario`;
+    setLoading(true);
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, ciclo, postulantes }),
+      });
+
+      if (!response.ok) throw new Error(`Error del servidor: ${response.statusText}`);
+
+      const data = await response.json();
+      console.log('Respuesta del servidor:', data);
+
+      showSuccess('Formulario enviado correctamente ✅');
+
+      // limpiar formulario
+      setEmail('');
+      setCiclo('');
+      setPostulantes([]);
+    } catch (err) {
+      console.error(err);
+      showError('Hubo un error al enviar el formulario ❌');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className={styles.container}>
       <div>
-        <img src='/large_interno_wellspring.png' alt='logo del colegio wellspring'/>
+        <img src='/large_interno_wellspring.png' alt='logo del colegio wellspring' />
       </div>
       <h1 className={styles.h1}>Formulario de Admisión</h1>
       <p>Muchas gracias por su contacto. Por favor completá los datos solicitados. Nos comunicaremos a la brevedad.</p>
@@ -84,7 +104,7 @@ const handleEnviar = async () => {
           value={ciclo}
           onChange={(e) => setCiclo(e.target.value)}
           required
-          className={styles.input} // usá input para estilos de select también, o agregá otro className si querés
+          className={styles.input}
         >
           <option value="">Selecciona</option>
           <option value="2025">2025</option>
@@ -105,7 +125,7 @@ const handleEnviar = async () => {
                   setEditingIndex(i);
                   setEditingData(p);
                 }}
-                style={{ marginLeft: '1rem' }} // opcional: mejor hacer con clase
+                style={{ marginLeft: '1rem' }}
               >
                 Editar
               </button>
@@ -141,17 +161,16 @@ const handleEnviar = async () => {
       )}
 
       {/* Botón Enviar */}
-     <div className={styles.submitContainer}>
-  <button
-    type="button"
-    disabled={!puedeEnviar}
-    onClick={handleEnviar}
-    className={styles.button}
-  >
-    Enviar
-  </button>
-</div>
-
+      <div className={styles.submitContainer}>
+        <button
+          type="button"
+          disabled={!puedeEnviar || loading}
+          onClick={handleEnviar}
+          className={styles.button}
+        >
+          {loading ? <span className={styles.loader}></span> : 'Enviar'}
+        </button>
+      </div>
     </div>
   );
 }

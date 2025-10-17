@@ -188,7 +188,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
       <label className={style.label}>
         Celular de contacto:
         <input
-          type="tel"
+          type='number'
           value={celularProgenitor1}
           onChange={(e) => setCelularProgenitor1(e.target.value)}
           required
@@ -210,7 +210,7 @@ export default function PostulanteForm({ postulanteNumber, onCancel, onNext, ini
       <label className={style.label}>
         Celular de contacto:
         <input
-          type="tel"
+          type="number"
           value={celularProgenitor2}
           onChange={(e) => setCelularProgenitor2(e.target.value)}
           required
