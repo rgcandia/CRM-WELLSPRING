@@ -1,0 +1,96 @@
+/* Contenedor principal de la tabla */
+.tableContainer {
+  width: 100%;
+  padding: 20px;
+  background-color: #f8f9fa; /* Fondo claro para resaltar la tabla */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para darle profundidad */
+}
+
+/* Título de la tabla */
+h2 {
+  font-size: 24px;
+  color: #142454; /* Color principal (azul oscuro) */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Estilos generales de la tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #fff; /* Fondo blanco para la tabla */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Estilo de las cabeceras */
+th {
+  background-color: #142454; /* Color principal en el encabezado */
+  color: #fff; /* Blanco para el texto */
+  padding: 12px;
+  font-size: 16px;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Estilo de las celdas de la tabla */
+td {
+  padding: 12px;
+  text-align: left;
+  font-size: 16px;
+  color: #444c74; /* Color secundario */
+  border-bottom: 1px solid #bebecd; /* Borde suave en las filas */
+}
+
+tr:hover {
+  background-color: #e4e9f0; /* Color de fondo al hacer hover */
+  cursor: pointer;
+}
+
+/* Estilos para el botón */
+.actionButton {
+  background-color: #142454; /* Color principal para el botón */
+  color: #fff; /* Texto blanco */
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.actionButton:hover {
+  background-color: #0f1c39; /* Color más oscuro en el hover */
+  transform: scale(1.05); /* Efecto de aumento para el hover */
+}
+
+.actionButton:focus {
+  outline: none;
+}
+
+/* Mensaje de "no hay formularios" */
+.noFormsMessage {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  margin-top: 20px;
+}
+
+/* Responsividad: Ajustes en pantallas más pequeñas */
+@media (max-width: 768px) {
+  table {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  .actionButton {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}

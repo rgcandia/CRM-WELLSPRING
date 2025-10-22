@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';  // Importa useDispatch de Redux
 import { uploadFormularios } from './redux/slice';  // Importa la acción de Redux para cargar los formularios
 import Nav from './componentes/Nav/Nav';
+import FormularioTable from './componentes/FormularioTable/FormularioTable';  // Asegúrate de que la ruta esté correcta
 import Sidebar from './componentes/Sidebar/Sidebar';
 import styles from './App.module.css';
 import { startSocket } from './socket.js';  // Importa la función para iniciar el socket
@@ -30,7 +31,17 @@ function App() {
   }, [dispatch]);  // Solo se ejecuta una vez, al montar el componente
 
   const renderVista = () => {
-    return <div>Vista del dashboard</div>;  // Lógica para renderizar las vistas internas
+    // Según la vista actual, renderizamos el componente correspondiente
+    switch (vistaActual) {
+      case 'formularios':
+        return <FormularioTable />; // Renderiza el FormularioTable cuando se selecciona "formularios"
+      case 'dashboard':
+        return <div>Vista del Dashboard</div>; // Placeholder para la vista del dashboard
+      case 'configuracion':
+        return <div>Vista de Configuración</div>; // Placeholder para la vista de configuración
+      default:
+        return <div>Vista desconocida</div>; // En caso de que la vista sea desconocida
+    }
   };
 
   return (
@@ -39,7 +50,7 @@ function App() {
       <div className={styles.layout}>
         <Sidebar onSelect={setVistaActual} />
         <main className={styles.content}>
-          {renderVista()}
+          {renderVista()}  {/* Aquí se renderiza la vista actual según el estado */}
         </main>
       </div>
     </>
@@ -47,4 +58,5 @@ function App() {
 }
 
 export default App;
+
 
