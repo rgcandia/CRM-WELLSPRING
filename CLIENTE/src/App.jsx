@@ -1,27 +1,36 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';  // Importa useDispatch de Redux
+import { uploadFormularios } from './redux/slice';  // Importa la acción de Redux para cargar los formularios
 import Nav from './componentes/Nav/Nav';
 import Sidebar from './componentes/Sidebar/Sidebar';
 import styles from './App.module.css';
 import { startSocket } from './socket.js';  // Importa la función para iniciar el socket
+import { listenForFormsArray } from './socket.js';  // Importa la función para escuchar los formularios
 
 function App() {
   const [vistaActual, setVistaActual] = useState('dashboard');
+  const dispatch = useDispatch();  // Usamos useDispatch para despachar acciones a Redux
 
   // Este useEffect ejecutará startSocket cuando el componente se monte
   useEffect(() => {
     // Ejecutamos startSocket para establecer la conexión al servidor
     startSocket();
 
-    // Opcional: Aquí puedes agregar lógica para desconectar el socket cuando el componente se desmonte.
+    // Escuchar el evento 'FormsArray' para cargar los formularios en el estado global
+    listenForFormsArray((formulariosRecibidos) => {
+      // Despachamos la acción de Redux para cargar los formularios
+      dispatch(uploadFormularios(formulariosRecibidos));
+    });
+
+    // Opcional: Aquí puedes agregar lógica para desconectar el socket cuando el componente se desmonte
     return () => {
-      // socket.disconnect(); // Si necesitas desconectar el socket
+      // Si necesitas desconectar el socket, puedes hacerlo aquí
       console.log('Socket desconectado');
     };
-  }, []);  // El array vacío asegura que solo se ejecute una vez, cuando el componente se monta
+  }, [dispatch]);  // Solo se ejecuta una vez, al montar el componente
 
   const renderVista = () => {
-    // Lógica para renderizar las vistas internas
-    return <div>Vista del dashboard</div>;  // Ejemplo
+    return <div>Vista del dashboard</div>;  // Lógica para renderizar las vistas internas
   };
 
   return (
@@ -38,3 +47,4 @@ function App() {
 }
 
 export default App;
+
