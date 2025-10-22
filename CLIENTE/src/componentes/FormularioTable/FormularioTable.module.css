@@ -1,10 +1,9 @@
 /* Contenedor principal de la tabla */
 .tableContainer {
-  width: 100%;
+  width: 90%;
   padding: 20px;
   background-color: #f8f9fa; /* Fondo claro para resaltar la tabla */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para darle profundidad */
 }
 
 /* Título de la tabla */
