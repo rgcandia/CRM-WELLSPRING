@@ -18,6 +18,7 @@ const FormularioTable = () => {
           <tr>
             <th>Email</th>
             <th>Fecha de Creación</th>
+            <th>Leidos</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -26,6 +27,14 @@ const FormularioTable = () => {
             <tr key={formulario.id}>
               <td>{formulario.id}</td> 
               <td>{new Date(formulario.createdAt).toLocaleString()}</td>
+             <td>
+  {formulario.read ? (
+    <span style={{ color: 'green' }}> Leído</span>
+  ) : (
+    <span style={{ color: 'red' }}> No leído</span>
+  )}
+</td>
+
               <td>
                 <button
                   className={styles.actionButton}
