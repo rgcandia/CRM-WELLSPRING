@@ -15,8 +15,7 @@ router.post('/', async (req, res) => {
       data: form        // Todo el JSON se guarda en "data"
     });
 
-    console.log('📩 Formulario recibido y guardado:', form);
-
+    console.log('📩 Formulario recibido y guardado :', form);
     // Obtener todos los formularios actuales
     const formularios = await obtenerTodosFormularios();
 
