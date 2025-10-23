@@ -51,18 +51,20 @@ tr:hover {
 
 /* Estilos para el botón */
 .actionButton {
-  background-color: #142454; /* Color principal para el botón */
-  color: #fff; /* Texto blanco */
+  background-color:transparent; /* Color principal para el botón */
+  color: #142454; /* Texto blanco */
   padding: 8px 16px;
   border: none;
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 600;
 }
 
 .actionButton:hover {
-  background-color: #0f1c39; /* Color más oscuro en el hover */
+  background-color:  #142454; /* Color más oscuro en el hover */
+  color: white;
   transform: scale(1.05); /* Efecto de aumento para el hover */
 }
 
