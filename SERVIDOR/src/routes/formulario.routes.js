@@ -22,8 +22,8 @@ router.post('/', async (req, res) => {
 
     // Emitir un mensaje de éxito y los formularios actualizados a través de Socket
     const alerta = {
-      tipo: 'success',  // Puede ser 'success', 'error', 'info', 'otro'
-      mensaje: 'Formulario recibido y guardado correctamente'
+      tipo: 'info',  // Puede ser 'success', 'error', 'info', 'otro'
+      mensaje: 'Ingreso un nuevo formulario'
     };
 
     // Emitir el evento 'formulario-alerta' con la alerta y los formularios actualizados
