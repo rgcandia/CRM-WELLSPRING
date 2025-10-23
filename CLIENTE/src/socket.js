@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { showAlert } from './notifications';  // Asegúrate de importar la función que maneja las alertas
+import { showAlert } from './toast.js';  // Asegúrate de importar la función que maneja las alertas
 
 let socket;
 const apiUrl = import.meta.env.VITE_API_URL; // Tu URL de la API
