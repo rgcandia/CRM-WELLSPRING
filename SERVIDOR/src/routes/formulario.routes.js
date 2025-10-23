@@ -1,7 +1,9 @@
+// formulario.routes.js
+
 const { Router } = require('express');
 const router = Router();
 const { Formulario } = require('../db.js');
-const socket = require('../socket.js'); // Asegúrate de importar la instancia de Socket
+const {emitEvent} = require('../services/socketService.js');
 const { obtenerTodosFormularios } = require('../services/formularioService');  // Importamos el servicio para obtener formularios
 
 // Ruta POST /formulario
@@ -15,7 +17,8 @@ router.post('/', async (req, res) => {
       data: form        // Todo el JSON se guarda en "data"
     });
 
-    console.log('📩 Formulario recibido y guardado :', form);
+    console.log('📩 Formulario recibido y guardado:', form);
+
     // Obtener todos los formularios actuales
     const formularios = await obtenerTodosFormularios();
 
@@ -26,7 +29,7 @@ router.post('/', async (req, res) => {
     };
 
     // Emitir el evento 'formulario-alerta' con la alerta y los formularios actualizados
-    socket.io.emit('formulario-alerta', { alerta, formularios });
+    emitEvent('formulario-alerta', { alerta, formularios });  // Emitir la alerta usando `io`
 
     res.status(200).json({ message: 'Formulario guardado correctamente' });
   } catch (err) {
@@ -39,11 +42,10 @@ router.post('/', async (req, res) => {
     };
 
     // Emitir el evento 'formulario-alerta' con la alerta de error
-    socket.io.emit('formulario-alerta', { alerta });
+   emitEvent('formulario-alerta', { alerta });  // Emitir la alerta de error usando `io`
 
     res.status(500).json({ error: 'No se pudo guardar el formulario' });
   }
 });
 
 module.exports = router;
-

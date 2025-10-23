@@ -5,7 +5,6 @@ module.exports = (sequelize) => {
     // El id sigue siendo el email, único
     id: {
       type: DataTypes.STRING,
-      primaryKey: true,
       allowNull: false, // El email es obligatorio
       validate: {
         isEmail: true, // Valida que sea un correo válido
@@ -14,6 +13,7 @@ module.exports = (sequelize) => {
     // Agregamos el id numérico auto-incremental
     id_numérico: {
       type: DataTypes.INTEGER,
+      primaryKey: true,
       allowNull: false, // Este campo no puede ser nulo
       autoIncrement: true, // Hace que el id numérico se incremente automáticamente
       unique: true, // Asegura que sea único

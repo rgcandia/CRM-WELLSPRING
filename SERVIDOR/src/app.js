@@ -23,6 +23,6 @@ app.use((req, res, next) => {
 app.use('/', routes);
 const httpServer = http.createServer(app)
   //inicio socket con el servidor http
-initialSocket(httpServer);
+ initialSocket(httpServer);
     //export
 module.exports =httpServer ;
