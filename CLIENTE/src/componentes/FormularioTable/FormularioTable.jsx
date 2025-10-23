@@ -1,14 +1,22 @@
-import { useSelector } from 'react-redux'; // Para acceder al estado de Redux
-import styles from './FormularioTable.module.css';  // Importamos el módulo CSS
+import { useSelector, useDispatch } from 'react-redux'; // Importamos useDispatch
+import { selectFormulario } from '../slices/formularioSlice'; // Importamos la acción
+import styles from './FormularioTable.module.css'; // Importamos el módulo CSS
 
 const FormularioTable = () => {
   // Accedemos al array de formularios en el estado global
   const formularios = useSelector((state) => state.data.formularios);
+  const dispatch = useDispatch(); // Accedemos al dispatch
 
   // Si no hay formularios, mostramos un mensaje
   if (formularios.length === 0) {
     return <p className={styles.noFormsMessage}>No hay formularios disponibles.</p>;
   }
+
+  // Función para manejar la selección de un formulario
+  const handleSelectFormulario = (id) => {
+    dispatch(selectFormulario(id)); // Despachamos la acción con el id seleccionado
+    console.log(`Formulario seleccionado: ${id}`);
+  };
 
   return (
     <div className={styles.tableContainer}>
@@ -27,18 +35,17 @@ const FormularioTable = () => {
             <tr key={formulario.id}>
               <td>{formulario.id}</td> 
               <td>{new Date(formulario.createdAt).toLocaleString()}</td>
-             <td>
-  {formulario.read ? (
-    <span style={{ color: 'green' }}> Leído</span>
-  ) : (
-    <span style={{ color: 'red' }}> No leído</span>
-  )}
-</td>
-
+              <td>
+                {formulario.read ? (
+                  <span style={{ color: 'green' }}> Leído</span>
+                ) : (
+                  <span style={{ color: 'red' }}> No leído</span>
+                )}
+              </td>
               <td>
                 <button
                   className={styles.actionButton}
-                  onClick={() => handleSelectFormulario(formulario.id)}
+                  onClick={() => handleSelectFormulario(formulario.id_numerico)}
                 >
                   Ver detalles
                 </button>
@@ -49,12 +56,6 @@ const FormularioTable = () => {
       </table>
     </div>
   );
-};
-
-// Función de ejemplo para manejar la selección de un formulario
-const handleSelectFormulario = (id) => {
-  console.log(`Formulario seleccionado: ${id}`);
-  // Aquí podrías despachar una acción o hacer algo más con el ID
 };
 
 export default FormularioTable;

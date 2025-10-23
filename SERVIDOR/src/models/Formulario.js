@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       },
     },
     // Agregamos el id numérico auto-incremental
-    id_numérico: {
+    id_numerico: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       allowNull: false, // Este campo no puede ser nulo
