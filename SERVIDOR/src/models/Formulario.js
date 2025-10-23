@@ -2,13 +2,21 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   sequelize.define('formulario', {
+    // El id sigue siendo el email, único
     id: {
       type: DataTypes.STRING,
       primaryKey: true,
-      allowNull: false, // el email es obligatorio
+      allowNull: false, // El email es obligatorio
       validate: {
-        isEmail: true, // valida que sea un correo válido
+        isEmail: true, // Valida que sea un correo válido
       },
+    },
+    // Agregamos el id numérico auto-incremental
+    id_numérico: {
+      type: DataTypes.INTEGER,
+      allowNull: false, // Este campo no puede ser nulo
+      autoIncrement: true, // Hace que el id numérico se incremente automáticamente
+      unique: true, // Asegura que sea único
     },
     data: {
       type: DataTypes.JSONB, // JSONB es más eficiente en Postgres
@@ -16,11 +24,11 @@ module.exports = (sequelize) => {
     },
     read: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false, // inicialmente no leído
+      defaultValue: false, // Inicialmente no leído
     },
     scheduled: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false, // inicialmente sin encuentro programado
+      defaultValue: false, // Inicialmente sin encuentro programado
     },
     scheduleDate: {
       type: DataTypes.DATE,
@@ -31,7 +39,7 @@ module.exports = (sequelize) => {
       allowNull: true,
     },
   }, {
-    timestamps: true, // agrega createdAt y updatedAt automáticamente
-    tableName: 'formularios', // nombre de la tabla en la DB
+    timestamps: true, // Agrega createdAt y updatedAt automáticamente
+    tableName: 'formularios', // Nombre de la tabla en la DB
   });
 };
