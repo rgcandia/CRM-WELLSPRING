@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'; // Importamos useDispatch
-import { selectFormulario } from '../slices/formularioSlice'; // Importamos la acción
+import { selectFormulario } from '../../redux/slice.js'; // Importamos la acción
 import styles from './FormularioTable.module.css'; // Importamos el módulo CSS
 
 const FormularioTable = () => {
