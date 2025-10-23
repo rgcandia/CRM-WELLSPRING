@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
     // Emitir un mensaje de éxito y los formularios actualizados a través de Socket
     const alerta = {
       tipo: 'info',  // Puede ser 'success', 'error', 'info', 'otro'
-      mensaje: 'Ingreso un nuevo formulario'
+      mensaje: 'Ingresó un nuevo formulario'
     };
 
     // Emitir el evento 'formulario-alerta' con la alerta y los formularios actualizados
@@ -34,15 +34,6 @@ router.post('/', async (req, res) => {
     res.status(200).json({ message: 'Formulario guardado correctamente' });
   } catch (err) {
     console.error('Error al guardar el formulario:', err);
-
-    // Emitir un evento de error si algo sale mal
-    const alerta = {
-      tipo: 'error',
-      mensaje: 'No se pudo guardar el formulario'
-    };
-
-    // Emitir el evento 'formulario-alerta' con la alerta de error
-   emitEvent('formulario-alerta', { alerta });  // Emitir la alerta de error usando `io`
 
     res.status(500).json({ error: 'No se pudo guardar el formulario' });
   }
