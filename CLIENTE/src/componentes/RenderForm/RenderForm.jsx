@@ -13,8 +13,8 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
     }));
   };
 
-  const handleEdit = () => {
-    setIsEditing(true);
+  const handleSliderChange = (e) => {
+    setIsEditing(e.target.checked);
   };
 
   const handleSave = () => {
@@ -24,6 +24,11 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
 
   return (
     <div className={styles.formDetailsContainer}>
+    <div className={styles.buttonWrapper}>  
+      <button onClick={onClose} className={styles.buttonCloseTop}>
+        X
+      </button>
+    </div>
       <h3 className={styles.formTitle}>Detalles del Formulario</h3>
       <div className={styles.formDetails}>
         <div className={styles.formField}>
@@ -57,32 +62,43 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
             className={styles.formInput}
           />
         </div>
-     <div className={styles.formField}>
- 
-  <div className={styles.formCheckboxWrapper}> {/* Contenedor para checkbox y label */}
-    <input
-      type="checkbox"
-      name="read"
-      checked={formData.read}
-      onChange={(e) => handleChange({ target: { name: 'read', value: e.target.checked } })}
-      disabled={!isEditing}
-      className={styles.formCheckbox}
-    />
-    <label htmlFor="read" className={styles.checkboxLabel}>Leído</label> {/* Aquí puedes ajustar el texto si lo deseas */}
-  </div>
-</div>
-
+        <div className={styles.formField}>
+          <div className={styles.formCheckboxWrapper}> 
+            <input
+              type="checkbox"
+              name="read"
+              checked={formData.read}
+              onChange={(e) => handleChange({ target: { name: 'read', value: e.target.checked } })}
+              disabled={!isEditing}
+              className={styles.formCheckbox}
+            />
+            <label htmlFor="read" className={styles.checkboxLabel}>Leído</label>
+          </div>
+        </div>
       </div>
+
+      {/* Slider para habilitar/deshabilitar la edición */}
+      <div className={styles.sliderContainer}>
+        <label htmlFor="editSlider" className={styles.sliderLabel}>
+          Habilitar Edición:
+        </label>
+        <input
+          type="checkbox"
+          id="editSlider"
+          className={styles.slider}
+          checked={isEditing}
+          onChange={handleSliderChange}
+        />
+      </div>
+
       <div className={styles.actions}>
-        <button onClick={handleEdit} disabled={isEditing} className={styles.buttonEdit}>
-          Editar
-        </button>
-        <button onClick={handleSave} disabled={!isEditing} className={styles.buttonSave}>
+        <button 
+          onClick={handleSave} 
+          disabled={!isEditing} 
+          className={styles.buttonSave}>
           Guardar
         </button>
-        <button onClick={onClose} className={styles.buttonClose}>
-          × Cerrar
-        </button>
+      
       </div>
     </div>
   );

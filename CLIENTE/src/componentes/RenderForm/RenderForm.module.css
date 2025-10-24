@@ -1,4 +1,4 @@
-/* Estilo para el contenedor principal */
+/* Contenedor principal de detalles */
 .formDetailsContainer {
   background-color: var(--color-fondo-claro);
   padding: 20px;
@@ -51,6 +51,62 @@
   transform: scale(1.2);  /* Tamaño ligeramente mayor */
 }
 
+/* Estilo del contenedor del slider de edición */
+.sliderContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.sliderLabel {
+  font-size: 14px;
+  color: var(--color-secundario);
+}
+
+.slider {
+  width: 50px;
+  height: 25px;
+  background-color: #ccc; /* Fondo gris claro cuando no está activado */
+  border-radius: 15px;
+  position: relative;
+  appearance: none;
+  outline: none;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+/* Fondo cuando el slider está activado */
+.slider:checked {
+  background-color: var(--color-primario); /* Cambia el fondo cuando está activado */
+}
+
+/* Estilo del círculo dentro del slider */
+.slider:before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 19px;
+  height: 19px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+/* Mover el círculo a la derecha cuando el slider está activado */
+.slider:checked:before {
+  transform: translateX(25px);
+}
+
+
+
+.sliderLabel {
+  font-weight: 600;
+  color: #333;  /* Color más oscuro para la etiqueta */
+}
+
+
 /* Acciones (botones) */
 .actions {
   display: flex;
@@ -58,7 +114,7 @@
   margin-top: 20px;
 }
 
-.buttonEdit, .buttonSave, .buttonClose {
+.buttonSave {
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
@@ -66,31 +122,18 @@
   font-size: 14px;
 }
 
-.buttonEdit {
-  background-color: var(--color-primario);
-  color: var(--blanco);
-}
-
 .buttonSave {
   background-color: var(--color-secundario);
   color: var(--blanco);
 }
 
-.buttonClose {
-  background-color: var(--color-secundario);
-  color: var(--blanco);
+.buttonSave:disabled {
+  background-color: var(--color-disabled);
+  cursor: not-allowed;
 }
 
 /* Efectos hover para los botones */
-.buttonEdit:hover {
-  background-color: var(--color-hover);
-}
-
 .buttonSave:hover {
-  background-color: var(--color-hover);
-}
-
-.buttonClose:hover {
   background-color: var(--color-hover);
 }
 
@@ -98,4 +141,38 @@
 button:disabled {
   background-color: var(--color-disabled);
   cursor: not-allowed;
+}
+
+/* Estilo del div que envuelve el botón de cierre */
+.buttonWrapper {
+  position: absolute; /* Lo posicionamos de manera absoluta */
+  top: 10px;           /* Desde la parte superior */
+  right: 10px;         /* Alineado a la derecha */
+  z-index: 10;         /* Aseguramos que el botón quede por encima de otros elementos */
+}
+
+/* Estilo del botón cerrar */
+.buttonCloseTop {
+  background-color: red; /* Fondo rojo */
+  border: none;
+  color: white; /* Texto blanco */
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50%; /* Hacemos que el botón sea redondo */
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.buttonCloseTop:hover {
+  background-color: darkred; /* Cambia a un rojo más oscuro al pasar el cursor */
+}
+
+/* Aseguramos que el contenedor principal tenga un contexto relativo para posicionar correctamente el botón */
+.formDetailsContainer {
+  position: relative; /* Relativo para que los elementos dentro se posicionen en relación con él */
 }
