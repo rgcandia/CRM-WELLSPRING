@@ -7,13 +7,15 @@
 }
 
 /* Título de la tabla */
-h2 {
+
+.title{
   font-size: 24px;
   color: #142454; /* Color principal (azul oscuro) */
   margin-bottom: 20px;
   text-align: center;
+  border-bottom: 2px solid  #142454;; /* Ajusta el color y el grosor a tu gusto */
+  padding-bottom: 10px; /* Espacio entre el texto y la línea */
 }
-
 /* Estilos generales de la tabla */
 table {
   width: 100%;
