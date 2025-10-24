@@ -1,0 +1,101 @@
+/* Estilo para el contenedor principal */
+.formDetailsContainer {
+  background-color: var(--color-fondo-claro);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Título del formulario */
+.formTitle {
+  color: var(--color-primario);
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Detalles del formulario */
+.formDetails {
+  display: grid;
+  gap: 15px;
+}
+
+/* Estilo de los campos del formulario */
+.formField {
+  display: flex;
+  flex-direction: column;
+}
+
+.formField label {
+  font-size: 14px;
+  color: var(--color-secundario);
+  margin-bottom: 5px;
+}
+
+.formInput {
+  padding: 10px;
+  border: 1px solid var(--borde);
+  border-radius: 5px;
+  font-size: 16px;
+  color: var(--texto-principal);
+  background-color: var(--blanco);
+}
+
+/* Estilo para el checkbox */
+.formCheckboxWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espacio entre el label y el checkbox */
+}
+
+.formCheckbox {
+  transform: scale(1.2);  /* Tamaño ligeramente mayor */
+}
+
+/* Acciones (botones) */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.buttonEdit, .buttonSave, .buttonClose {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.buttonEdit {
+  background-color: var(--color-primario);
+  color: var(--blanco);
+}
+
+.buttonSave {
+  background-color: var(--color-secundario);
+  color: var(--blanco);
+}
+
+.buttonClose {
+  background-color: var(--color-secundario);
+  color: var(--blanco);
+}
+
+/* Efectos hover para los botones */
+.buttonEdit:hover {
+  background-color: var(--color-hover);
+}
+
+.buttonSave:hover {
+  background-color: var(--color-hover);
+}
+
+.buttonClose:hover {
+  background-color: var(--color-hover);
+}
+
+/* Estilos para los botones deshabilitados */
+button:disabled {
+  background-color: var(--color-disabled);
+  cursor: not-allowed;
+}
