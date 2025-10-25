@@ -143,16 +143,13 @@
 
 /* Efectos hover para los botones */
 .buttonSave:hover {
-  background-color: var(--color-hover);
+  background-color: var(--color-primario);
 }
 
 
 /* Estilos para los botones deshabilitados */
-button:disabled {
-  background-color: var(--color-disabled);
-  cursor: not-allowed;
-}
-button:disabled:hover {
+
+.buttonSave:disabled:hover {
   background-color: var(--color-disabled);
   
 }
