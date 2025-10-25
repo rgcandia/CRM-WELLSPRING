@@ -68,7 +68,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
+  padding: 4px 8px;
   background-color: var(--color-primario); /* azul */
   border: 1px solid var(--color-primario);
   border-radius: 6px;
