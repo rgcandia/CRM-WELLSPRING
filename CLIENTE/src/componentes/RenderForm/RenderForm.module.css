@@ -116,6 +116,16 @@
 }
 
 
+
+/*Datos postulantes*/
+
+.subTitle{
+  text-align: center;
+  color:  #142454;
+  border-bottom: 2px solid  #142454;; /* Ajusta el color y el grosor a tu gusto */
+  padding-bottom: 10px; /* Espacio entre el texto y la línea */
+}
+
 /* Acciones (botones) */
 .actions {
   display: flex;
@@ -187,3 +197,5 @@
 .formDetailsContainer {
   position: relative; /* Relativo para que los elementos dentro se posicionen en relación con él */
 }
+
+
