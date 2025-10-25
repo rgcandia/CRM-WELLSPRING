@@ -27,6 +27,29 @@ const handleChange = (e) => {
     };
   });
 };
+const handlePostulanteChange = (e, index, key) => {
+  const { value } = e.target;
+
+  setFormData((prevData) => {
+    // Creamos una copia del array de postulantes
+    const updatedPostulantes = [...prevData.data.postulantes];
+
+    // Actualizamos el valor del campo editado
+    updatedPostulantes[index] = {
+      ...updatedPostulantes[index],
+      [key]: value,
+    };
+
+    // Retornamos el nuevo estado
+    return {
+      ...prevData,
+      data: {
+        ...prevData.data,
+        postulantes: updatedPostulantes,
+      },
+    };
+  });
+};
 
 
   const handleSliderChange = (e) => {
@@ -119,12 +142,12 @@ const handleChange = (e) => {
   // Definís el orden que querés visualizar
   const ordenCampos = [
     "nombreApellido",
+    "fechaNacimiento",
     "nivel",
     "gradoPrimaria",
     "anioSecundaria",
     "salaInicial",
     "colegioActual",
-    "fechaNacimiento",
     "nombreProgenitor1",
     "celularProgenitor1",
     "nombreProgenitor2",
@@ -136,7 +159,7 @@ const handleChange = (e) => {
 
   return (
     <div key={index} className={styles.postulanteContainer}>
-      <h5 className={styles.postulanteTitle}>Postulante {index + 1}</h5>
+      <h5 className={styles.subTitle}>Postulante {index + 1}</h5>
 
       {ordenCampos.map((key) => {
         const value = postulante[key];
@@ -162,7 +185,7 @@ const handleChange = (e) => {
 
 
 
-      <div className={styles.formField}>
+      <div className={styles.formField} style={{marginTop:'30px'}}>
           <div className={styles.formCheckboxWrapper}> 
             <input
               type="checkbox"

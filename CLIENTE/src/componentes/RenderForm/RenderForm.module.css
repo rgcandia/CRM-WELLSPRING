@@ -122,8 +122,10 @@
 .subTitle{
   text-align: center;
   color:  #142454;
-  border-bottom: 2px solid  #142454;; /* Ajusta el color y el grosor a tu gusto */
+  border-bottom: 2px solid  #142454; /* Ajusta el color y el grosor a tu gusto */
   padding-bottom: 10px; /* Espacio entre el texto y la línea */
+  margin-bottom: 20px;
+  font-style: italic;
 }
 
 /* Acciones (botones) */
