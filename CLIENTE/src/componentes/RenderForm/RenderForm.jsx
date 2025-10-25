@@ -31,7 +31,9 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
     </div>
       <h3 className={styles.formTitle}>Detalles del Formulario</h3>
       <div className={styles.formDetails}>
-        <div className={styles.formField}>
+     <div className={styles.dosColumnas}>{/* clase fila agrupa dos input en dos filas */}
+     
+      <div className={styles.formField}>
           <label>ID:</label>
           <input
             type="text"
@@ -40,18 +42,7 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
             disabled
             className={styles.formInput}
           />
-        </div>
-        <div className={styles.formField}>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="id"
-            value={formData.id}
-            onChange={handleChange}
-            disabled={!isEditing}
-            className={styles.formInput}
-          />
-        </div>
+      </div>
         <div className={styles.formField}>
           <label>Fecha de Creación:</label>
           <input
@@ -61,8 +52,21 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
             disabled
             className={styles.formInput}
           />
-        </div>
-        <div className={styles.formField}>
+      </div>
+     </div>
+      <div className={styles.formField}>
+          <label>Email:</label>
+          <input
+            type="email"
+            name="id"
+            value={formData.id}
+            onChange={handleChange}
+            disabled={!isEditing}
+            className={styles.formInput}
+          />
+      </div>
+       
+      <div className={styles.formField}>
           <div className={styles.formCheckboxWrapper}> 
             <input
               type="checkbox"
@@ -74,10 +78,11 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
             />
             <label htmlFor="read" className={styles.checkboxLabel}>Leído</label>
           </div>
-        </div>
+      </div>
       </div>
 
-      {/* Slider para habilitar/deshabilitar la edición */}
+    <div className={styles.dosColumnas}>
+       {/* Slider para habilitar/deshabilitar la edición */}
       <div className={styles.sliderContainer}>
         <label htmlFor="editSlider" className={styles.sliderLabel}>
           Habilitar Edición:
@@ -100,6 +105,9 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
         </button>
       
       </div>
+    </div>
+
+     
     </div>
   );
 };

@@ -31,7 +31,7 @@ const FormularioTable = () => {
           onSave={() => { /* Lógica para guardar los cambios */ }} 
         />
       ) : (
-        <>
+        <div className={styles.list}>
           <h2 className={styles.title}>   Formularios</h2>
           <table>
             <thead>
@@ -66,7 +66,7 @@ const FormularioTable = () => {
               ))}
             </tbody>
           </table>
-        </>
+        </div>
       )}
     </div>
   );

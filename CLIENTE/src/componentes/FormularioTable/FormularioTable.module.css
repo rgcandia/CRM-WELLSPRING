@@ -4,8 +4,16 @@
   padding: 20px;
   background-color: #f8f9fa; /* Fondo claro para resaltar la tabla */
   border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  
 }
-
+/*contenedor delalista*/
+.list{
+  display: flex;
+  flex-direction: column;  
+  width:  100%;
+}
 /* Título de la tabla */
 
 .title{
