@@ -21,8 +21,10 @@
   color: #142454; /* Color principal (azul oscuro) */
   margin-bottom: 20px;
   text-align: center;
-  border-bottom: 2px solid  #142454;; /* Ajusta el color y el grosor a tu gusto */
+  border-bottom: 2px solid  #142454;/* Ajusta el color y el grosor a tu gusto */
+   border-top: 2px solid  #142454;
   padding-bottom: 10px; /* Espacio entre el texto y la línea */
+  padding-top: 10px;
 }
 /* Estilos generales de la tabla */
 table {
