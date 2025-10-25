@@ -146,10 +146,15 @@
   background-color: var(--color-hover);
 }
 
+
 /* Estilos para los botones deshabilitados */
 button:disabled {
   background-color: var(--color-disabled);
   cursor: not-allowed;
+}
+button:disabled:hover {
+  background-color: var(--color-disabled);
+  
 }
 
 /* Estilo del div que envuelve el botón de cierre */
