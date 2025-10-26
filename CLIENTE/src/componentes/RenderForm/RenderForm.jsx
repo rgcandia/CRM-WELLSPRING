@@ -177,6 +177,7 @@ const handlePostulanteChange = (e, index, key) => {
               onChange={(e) => handlePostulanteChange(e, index, key)}
               disabled={!isEditing}
               className={styles.formInput}
+              
             />
           </div>
         );
