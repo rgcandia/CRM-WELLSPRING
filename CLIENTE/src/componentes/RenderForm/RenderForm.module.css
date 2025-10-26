@@ -205,13 +205,15 @@
 /* Aseguramos que el contenedor principal tenga un contexto relativo para posicionar correctamente el botón */
 .formDetailsContainer {
   position: relative; /* Relativo para que los elementos dentro se posicionen en relación con él */
+  max-width: 900px;
 }
 
 
 /* Separadador doblelinea*/
 .separador{
    border-top: 2px solid  #142454;/* Ajusta el color y el grosor a tu gusto */
-}
+
+  }
 .contenedorPostulantes {
   display: flex;          /* Activa el modelo flexbox */
   flex-wrap: wrap;        /* 🔹 Permite que los elementos bajen de línea si no caben */
@@ -220,3 +222,4 @@
   align-items: flex-start; /* Alinea los ítems por arriba (para evitar saltos desiguales de altura) */
   
 }
+

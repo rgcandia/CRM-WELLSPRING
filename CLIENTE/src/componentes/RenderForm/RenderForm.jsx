@@ -191,6 +191,8 @@ const handlePostulanteChange = (e, index, key) => {
 
 {/** Se coloca separador un border,top */}
 <div className={styles.separador}>
+  </div>
+  
 {/** Input de Leido */}
 
       <div className={styles.formField} style={{marginTop:'30px'}}>
@@ -206,7 +208,7 @@ const handlePostulanteChange = (e, index, key) => {
             <label htmlFor="read" className={styles.checkboxLabel}>Leído</label>
           </div>
       </div>
-      </div>
+      
 {/** Sector de edicion y guardado */}
 
     <div className={styles.dosColumnas}>
