@@ -121,6 +121,8 @@ const handlePostulanteChange = (e, index, key) => {
       </div> 
      </div>
 {/*Datos de los postulantes*/}
+{/** contenedor de lospostulantes renderizados */}
+<div className={styles.contenedorPostulantes}>
 {formData.data.postulantes.map((postulante, index) => {
   const formatLabel = (key) => {
   const map = {
@@ -182,6 +184,11 @@ const handlePostulanteChange = (e, index, key) => {
     </div>
   );
 })}
+
+</div>
+
+
+{/** Se coloca separador un border,top */}
 <div className={styles.separador}>
 {/** Input de Leido */}
 

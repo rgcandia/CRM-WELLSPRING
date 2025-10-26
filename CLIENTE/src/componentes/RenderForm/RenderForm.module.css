@@ -33,6 +33,7 @@
   flex-direction: row;
   align-items: center; /* 🔹 Centra verticalmente el label con el input */
   gap: 10px;
+  margin-bottom: 5px;
 }
 
 
@@ -50,6 +51,7 @@
   font-size: 16px;
   color: var(--texto-principal);
   background-color: var(--blanco);
+  
 }
 
 /* Estilo para el checkbox */
@@ -57,6 +59,7 @@
   display: flex;
   align-items: center;
   gap: 8px; /* Espacio entre el label y el checkbox */
+
 }
 
 .formCheckbox {
@@ -207,4 +210,12 @@
 /* Separadador doblelinea*/
 .separador{
    border-top: 2px solid  #142454;/* Ajusta el color y el grosor a tu gusto */
+}
+.contenedorPostulantes {
+  display: flex;          /* Activa el modelo flexbox */
+  flex-wrap: wrap;        /* 🔹 Permite que los elementos bajen de línea si no caben */
+  gap: 20px;              /* Espacio entre los elementos (opcional) */
+  justify-content: flex-start; /* Alinea los ítems al inicio (puedes usar center, space-between, etc.) */
+  align-items: flex-start; /* Alinea los ítems por arriba (para evitar saltos desiguales de altura) */
+  
 }
