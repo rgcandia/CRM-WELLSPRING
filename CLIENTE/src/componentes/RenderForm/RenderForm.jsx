@@ -74,7 +74,7 @@ const handlePostulanteChange = (e, index, key) => {
       <div className={styles.formDetails}>
         
      <div className={styles.dosColumnas}>{/* clase fila agrupa dos input en dos filas */}
-      
+      {/*Detalles principales del formulario*/}
       <div className={styles.formField}>
           <label>ID:</label>
           <input
@@ -182,8 +182,8 @@ const handlePostulanteChange = (e, index, key) => {
     </div>
   );
 })}
-
-
+<div className={styles.separador}>
+{/** Input de Leido */}
 
       <div className={styles.formField} style={{marginTop:'30px'}}>
           <div className={styles.formCheckboxWrapper}> 
@@ -199,10 +199,13 @@ const handlePostulanteChange = (e, index, key) => {
           </div>
       </div>
       </div>
+{/** Sector de edicion y guardado */}
 
     <div className={styles.dosColumnas}>
+      
        {/* Slider para habilitar/deshabilitar la edición */}
-      <div className={styles.sliderContainer}>
+ 
+       <div className={styles.sliderContainer}>
         <label htmlFor="editSlider" className={styles.sliderLabel}>
           Habilitar Edición:
         </label>
@@ -214,6 +217,7 @@ const handlePostulanteChange = (e, index, key) => {
           onChange={handleSliderChange}
         />
       </div>
+
 
       <div className={styles.actions}>
         <button 
@@ -228,6 +232,7 @@ const handlePostulanteChange = (e, index, key) => {
 
      
     </div>
+     </div>
   );
 };
 

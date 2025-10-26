@@ -30,14 +30,17 @@
 /* Estilo de los campos del formulario */
 .formField {
   display: flex;
-  flex-direction: column;
-  
+  flex-direction: row;
+  align-items: center; /* 🔹 Centra verticalmente el label con el input */
+  gap: 10px;
 }
+
 
 .formField label {
   font-size: 14px;
   color: var(--color-secundario);
-  margin-bottom: 5px;
+  min-width: 150px;
+  
 }
 
 .formInput {
@@ -201,3 +204,7 @@
 }
 
 
+/* Separadador doblelinea*/
+.separador{
+   border-top: 2px solid  #142454;/* Ajusta el color y el grosor a tu gusto */
+}
