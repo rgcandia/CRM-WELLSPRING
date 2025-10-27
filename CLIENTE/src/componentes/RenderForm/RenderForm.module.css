@@ -1,104 +1,151 @@
-/* Contenedor principal de detalles */
 .formDetailsContainer {
   background-color: var(--color-fondo-claro);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
- 
-}
-
-/* config para poner en dos filas los inputs*/
-.dosColumnas{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-/* Título del formulario */
-.formTitle {
-  color: var(--color-primario);
-  font-size: 24px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-/* Detalles del formulario */
-.formDetails {
-  display: grid;
-  gap: 15px;
-}
-
-/* Estilo de los campos del formulario */
-.formField {
-  display: flex;
-  flex-direction: row;
-  align-items: center; /* 🔹 Centra verticalmente el label con el input */
-  gap: 10px;
-  margin-bottom: 5px;
-
-}
-
-
-.formField label {
-  font-size: 14px;
-  color: var(--color-secundario);
-  min-width: 150px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  position: relative;
+  max-width: 950px;
+  min-width: 600px;
+  margin: 0 auto;
+  transition: all 0.3s ease;
   
 }
 
-.formInput {
-  padding: 10px;
-  border: 1px solid var(--borde);
-  border-radius: 5px;
-  font-size: 16px;
-  color: var(--texto-principal);
-  background-color: var(--blanco);
-
+.editing {
+  box-shadow: 0 0 10px rgba(20, 36, 84, 0.3);
 }
 
-/* Estilo para el checkbox */
+.formTitle {
+  color: var(--color-primario);
+  font-size: 26px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* 🧩 Cards (secciones visuales) */
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 1px solid #e3e6ec;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.sectionTitle {
+  color: #142454;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #142454;
+  padding-bottom: 6px;
+}
+
+/* 🧱 Grid flexible para inputs */
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+}
+
+.formField label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-secundario);
+  margin-bottom: 5px;
+}
+
+.formInput {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  color: var(--texto-principal);
+  background-color: var(--blanco);
+  transition: all 0.2s ease;
+}
+
+.formInput:focus {
+  border-color: var(--color-primario);
+  box-shadow: 0 0 4px rgba(20, 36, 84, 0.2);
+  outline: none;
+}
+
+.formInput:disabled {
+  background-color: #f4f4f4;
+  color: #777;
+}
+
+/* 🧍‍♂️ Postulantes */
+.contenedorPostulantes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.postulanteCard {
+  flex: 1 1 45%;
+  min-width: 320px;
+  background: #f8f9fc;
+  border: 1px solid #dfe3e8;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.postulanteCard h5 {
+  color: #142454;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+  font-style: italic;
+  text-align: center;
+}
+
+/* 🔘 Checkbox y slider */
 .formCheckboxWrapper {
+  
   display: flex;
   align-items: center;
-  gap: 8px; /* Espacio entre el label y el checkbox */
-
+  gap: 8px;
 }
 
 .formCheckbox {
-  transform: scale(1.2);  /* Tamaño ligeramente mayor */
+  transform: scale(1.2);
 }
 
-/* Estilo del contenedor del slider de edición */
 .sliderContainer {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 20px;
 }
 
 .sliderLabel {
-  font-size: 14px;
+  font-weight: 500;
   color: var(--color-secundario);
 }
 
 .slider {
   width: 50px;
   height: 25px;
-  background-color: #ccc; /* Fondo gris claro cuando no está activado */
+  background-color: #ccc;
   border-radius: 15px;
   position: relative;
   appearance: none;
-  outline: none;
-  transition: background-color 0.3s ease;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Fondo cuando el slider está activado */
 .slider:checked {
-  background-color: var(--color-primario); /* Cambia el fondo cuando está activado */
+  background-color: var(--color-primario);
 }
 
-/* Estilo del círculo dentro del slider */
-.slider:before {
+.slider::before {
   content: '';
   position: absolute;
   left: 3px;
@@ -110,116 +157,68 @@
   transition: transform 0.3s ease;
 }
 
-/* Mover el círculo a la derecha cuando el slider está activado */
-.slider:checked:before {
+.slider:checked::before {
   transform: translateX(25px);
 }
 
-
-
-.sliderLabel {
-  font-weight: 600;
-  color: #333;  /* Color más oscuro para la etiqueta */
-}
-
-
-
-/*Datos postulantes*/
-
-.subTitle{
-  text-align: center;
-  color:  #142454;
-  border-bottom: 2px solid  #142454; /* Ajusta el color y el grosor a tu gusto */
-  padding-bottom: 10px; /* Espacio entre el texto y la línea */
-  margin-bottom: 20px;
-  font-style: italic;
-}
-
-/* Acciones (botones) */
+/* 🧭 Botones */
 .actions {
   display: flex;
-  gap: 10px;
+ justify-content: center;
   margin-top: 20px;
 }
 
 .buttonSave {
-  padding: 10px 15px;
+  padding: 10px 18px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
+  color: white;
+  background: linear-gradient(90deg, var(--color-secundario), var(--color-primario));
+  transition: all 0.2s ease-in-out;
 }
 
-.buttonSave {
-  background-color: var(--color-secundario);
-  color: var(--blanco);
+.buttonSave:hover {
+  transform: scale(1.05);
 }
 
 .buttonSave:disabled {
-  background-color: var(--color-disabled);
+  background: #ccc;
   cursor: not-allowed;
+  transform: none;
 }
 
-/* Efectos hover para los botones */
-.buttonSave:hover {
-  background-color: var(--color-primario);
-}
-
-
-/* Estilos para los botones deshabilitados */
-
-.buttonSave:disabled:hover {
-  background-color: var(--color-disabled);
-  
-}
-
-/* Estilo del div que envuelve el botón de cierre */
+/*  Botón cerrar arriba */
 .buttonWrapper {
-  position: absolute; /* Lo posicionamos de manera absoluta */
-  top: 10px;           /* Desde la parte superior */
-  right: 10px;         /* Alineado a la derecha */
-  z-index: 10;         /* Aseguramos que el botón quede por encima de otros elementos */
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
 }
 
-/* Estilo del botón cerrar */
 .buttonCloseTop {
-  background-color: red; /* Fondo rojo */
+  background-color: red;
   border: none;
-  color: white; /* Texto blanco */
-  font-size: 20px;
-  font-weight: bold;
+  color: white;
+  font-size: 18px;
   cursor: pointer;
-  border-radius: 50%; /* Hacemos que el botón sea redondo */
+  border-radius: 50%;
   width: 35px;
   height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  transition: background-color 0.2s ease;
 }
 
 .buttonCloseTop:hover {
-  background-color: darkred; /* Cambia a un rojo más oscuro al pasar el cursor */
+  background-color: darkred;
 }
 
-/* Aseguramos que el contenedor principal tenga un contexto relativo para posicionar correctamente el botón */
-.formDetailsContainer {
-  position: relative; /* Relativo para que los elementos dentro se posicionen en relación con él */
-  max-width: 900px;
+.estado{
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  gap: 50px;
 }
-
-
-/* Separadador doblelinea*/
-.separador{
-   border-top: 2px solid  #142454;/* Ajusta el color y el grosor a tu gusto */
-
-  }
-.contenedorPostulantes {
-  display: flex;          /* Activa el modelo flexbox */
-  flex-wrap: wrap;        /* 🔹 Permite que los elementos bajen de línea si no caben */
-  gap: 20px;              /* Espacio entre los elementos (opcional) */
-  justify-content: flex-start; /* Alinea los ítems al inicio (puedes usar center, space-between, etc.) */
-  align-items: flex-start; /* Alinea los ítems por arriba (para evitar saltos desiguales de altura) */
-  
-}
-
