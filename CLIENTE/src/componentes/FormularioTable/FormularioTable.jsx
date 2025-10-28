@@ -58,6 +58,7 @@ const FormularioTable = () => {
           <table>
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Email</th>
                 <th>Fecha de Creación</th>
                 <th>Leídos</th>
@@ -66,7 +67,8 @@ const FormularioTable = () => {
             </thead>
             <tbody>
               {formularios.map((formulario) => (
-                <tr key={formulario.id}>
+                <tr key={formulario.id_numerico}>
+                  <td>{formulario.id_numerico}</td>
                   <td>{formulario.email}</td>
                   <td>{new Date(formulario.createdAt).toLocaleString()}</td>
                   <td>
