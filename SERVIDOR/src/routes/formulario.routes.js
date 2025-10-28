@@ -12,9 +12,10 @@ router.post('/', async (req, res) => {
 
   try {
     // Guardar en la base de datos
+      const { email, ...restoFormulario } = form;
     await Formulario.create({
       email: form.email,  
-      data: form        // Todo el JSON se guarda en "data"
+      data: restoFormulario        // Todo el JSON se guarda en "data"
     });
 
     console.log('📩 Formulario recibido y guardado:', form);
@@ -38,5 +39,59 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'No se pudo guardar el formulario' });
   }
 });
+
+
+
+// 🟡 Actualizar un formulario (PUT /formulario/:id)
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const nuevosDatos = req.body;
+
+  try {
+    const formulario = await Formulario.findByPk(id);
+
+    if (!formulario) {
+      return res.status(404).json({ error: 'Formulario no encontrado' });
+    }
+
+    // Desestructuramos solo los campos que queremos actualizar
+    const {
+      email,
+      data,
+      read,
+      scheduled,
+      scheduleDate,
+      notes
+    } = nuevosDatos;
+
+    // Actualizamos
+    await formulario.update({
+      email,
+      data,
+      read,
+      scheduled,
+      scheduleDate,
+      notes
+    });
+
+    console.log(`📝 Formulario actualizado (${id}):`, nuevosDatos);
+
+    // Traemos todos los formularios actualizados para emitir por socket
+    const formularios = await obtenerTodosFormularios();
+
+    const alerta = {
+      tipo: 'success',
+      mensaje: `Formulario ${id} actualizado correctamente`
+    };
+
+    emitEvent('formulario-alerta', { alerta, formularios });
+
+    res.status(200).json({ message: 'Formulario actualizado correctamente', formulario });
+  } catch (err) {
+    console.error('❌ Error al actualizar el formulario:', err);
+    res.status(500).json({ error: 'No se pudo actualizar el formulario' });
+  }
+});
+
 
 module.exports = router;

@@ -1,44 +1,66 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { selectFormulario } from '../../redux/slice.js';
 import styles from './FormularioTable.module.css';
-import RenderForm from '../RenderForm/RenderForm.jsx';  // Asegúrate de importar el componente RenderForm
+import RenderForm from '../RenderForm/RenderForm.jsx';
 
 const FormularioTable = () => {
-  // Accedemos al array de formularios en el estado global
   const formularios = useSelector((state) => state.data.formularios);
   const selectedFormulario = useSelector((state) => state.data.selectedFormulario);
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch();  // Accedemos al dispatch
+  // 🧠 Lógica para guardar cambios en el formulario
+  const handleSaveFormulario = async (updatedForm) => {
+    try {
+      // Construimos la URL usando la variable de entorno
+      const url = `${import.meta.env.VITE_API_URL}/formulario/${updatedForm.id_numerico}`;
 
-  // Si no hay formularios, mostramos un mensaje
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedForm),
+      });
+
+      if (!response.ok) throw new Error('Error al actualizar el formulario');
+
+      const data = await response.json();
+      console.log('✅ Formulario actualizado:', data);
+
+      
+
+      // Cerramos el detalle del formulario al guardar
+      dispatch(selectFormulario(null));
+    } catch (error) {
+      console.error('❌ Error al guardar el formulario:', error);
+      alert('No se pudo guardar el formulario');
+    }
+  };
+
+  const handleSelectFormulario = (form) => {
+    dispatch(selectFormulario(form));
+    console.log('📄 Formulario seleccionado:', form);
+  };
+
   if (formularios.length === 0) {
     return <p className={styles.noFormsMessage}>No hay formularios disponibles.</p>;
   }
 
-  // Función para manejar la selección de un formulario
-  const handleSelectFormulario = (form) => {
-    dispatch(selectFormulario(form));  // Despachamos la acción con el id seleccionado
-    console.log(`Formulario seleccionado: ${form}`);
-  };
-
   return (
     <div className={styles.tableContainer}>
       {selectedFormulario ? (
-        // Si hay un formulario seleccionado, lo mostramos
         <RenderForm
           formulario={selectedFormulario}
-          onClose={() => dispatch(selectFormulario(null))} // Cerrar el formulario
-          onSave={() => { /* Lógica para guardar los cambios */ }} 
+          onClose={() => dispatch(selectFormulario(null))}
+          onSave={handleSaveFormulario} // 🔹 Aquí conectamos la función de guardado
         />
       ) : (
         <div className={styles.list}>
-          <h2 className={styles.title}>   Formularios</h2>
+          <h2 className={styles.title}>Formularios</h2>
           <table>
             <thead>
               <tr>
                 <th>Email</th>
                 <th>Fecha de Creación</th>
-                <th>Leidos</th>
+                <th>Leídos</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -49,9 +71,9 @@ const FormularioTable = () => {
                   <td>{new Date(formulario.createdAt).toLocaleString()}</td>
                   <td>
                     {formulario.read ? (
-                      <span style={{ color: 'green' }}> Leído</span>
+                      <span style={{ color: 'green' }}>Leído</span>
                     ) : (
-                      <span style={{ color: 'red' }}> No leído</span>
+                      <span style={{ color: 'red' }}>No leído</span>
                     )}
                   </td>
                   <td>
