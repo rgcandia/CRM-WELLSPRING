@@ -130,8 +130,8 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
             <label>Email:</label>
             <input
               type="email"
-              name="id"
-              value={formData.id}
+              name="email"
+              value={formData.email}
               onChange={handleChange}
               disabled={!isEditing}
               className={styles.formInput}
@@ -154,13 +154,35 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
                   return (
                     <div key={key} className={styles.formField}>
                       <label>{formatLabel(key)}:</label>
-                      <input
-                        type="text"
-                        value={value ?? ""}
-                        onChange={(e) => handlePostulanteChange(e, index, key)}
-                        disabled={!isEditing}
-                        className={styles.formInput}
-                      />
+                  {key === "fechaNacimiento" ? (
+  isEditing ? (
+    // Cuando estás editando, usás el selector de fecha (type="date")
+    <input
+      type="date"
+      value={value ? value.split("/").reverse().join("-") : ""} 
+      onChange={(e) => handlePostulanteChange(e, index, key)}
+      disabled={!isEditing}
+      className={styles.formInput}
+    />
+  ) : (
+    // Cuando no estás editando, mostrás la fecha formateada legiblemente
+    <input
+      type="text"
+      value={value ? new Date(value).toLocaleDateString("es-AR") : ""}
+      disabled
+      className={styles.formInput}
+    />
+  )
+) : (
+  <input
+    type="text"
+    value={value ?? ""}
+    onChange={(e) => handlePostulanteChange(e, index, key)}
+    disabled={!isEditing}
+    className={styles.formInput}
+  />
+)}
+
                     </div>
                   );
                 })}

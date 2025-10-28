@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   sequelize.define('formulario', {
     // El id sigue siendo el email, único
-    id: {
+    email: {
       type: DataTypes.STRING,
       allowNull: false, // El email es obligatorio
       validate: {

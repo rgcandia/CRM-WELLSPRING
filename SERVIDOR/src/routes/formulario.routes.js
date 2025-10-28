@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
   try {
     // Guardar en la base de datos
     await Formulario.create({
-      id: form.email,   // Usamos el email como id
+      email: form.email,  
       data: form        // Todo el JSON se guarda en "data"
     });
 

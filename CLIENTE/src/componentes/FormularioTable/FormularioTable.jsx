@@ -45,7 +45,7 @@ const FormularioTable = () => {
             <tbody>
               {formularios.map((formulario) => (
                 <tr key={formulario.id}>
-                  <td>{formulario.id}</td>
+                  <td>{formulario.email}</td>
                   <td>{new Date(formulario.createdAt).toLocaleString()}</td>
                   <td>
                     {formulario.read ? (
