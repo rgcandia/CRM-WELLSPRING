@@ -3,8 +3,8 @@ const { Router } = require('express');
 const router = Router();
 const { crearEvento } = require('../services/calendarService.js');
 
-// POST /calendar/evento
-router.post('/evento', async (req, res) => {
+// POST /calendar/event
+router.post('/event', async (req, res) => {
   const { summary, description, start, end } = req.body;
 
   if (!summary || !start || !end) {
