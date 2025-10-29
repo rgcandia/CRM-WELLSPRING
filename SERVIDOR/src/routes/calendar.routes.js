@@ -1,7 +1,7 @@
 // routes/calendar.js
 const { Router } = require('express');
 const router = Router();
-const { crearEventoCalendar } = require('../services/googleCalendarService');
+const { crearEvento } = require('../services/calendarService.js');
 
 // POST /calendar/evento
 router.post('/evento', async (req, res) => {
@@ -12,7 +12,7 @@ router.post('/evento', async (req, res) => {
   }
 
   try {
-    const evento = await crearEventoCalendar({ summary, description, start, end });
+    const evento = await crearEvento({ summary, description, start, end });
     res.status(201).json({
       message: 'Evento creado correctamente',
       event: evento,
@@ -23,3 +23,4 @@ router.post('/evento', async (req, res) => {
 });
 
 module.exports = router;
+
