@@ -11,7 +11,6 @@ const FormularioTable = () => {
   // 🧠 Lógica para guardar cambios en el formulario
   const handleSaveFormulario = async (updatedForm) => {
     try {
-      // Construimos la URL usando la variable de entorno
       const url = `${import.meta.env.VITE_API_URL}/formulario/${updatedForm.id_numerico}`;
 
       const response = await fetch(url, {
@@ -24,8 +23,6 @@ const FormularioTable = () => {
 
       const data = await response.json();
       console.log('✅ Formulario actualizado:', data);
-
-      
 
       // Cerramos el detalle del formulario al guardar
       dispatch(selectFormulario(null));
@@ -50,7 +47,7 @@ const FormularioTable = () => {
         <RenderForm
           formulario={selectedFormulario}
           onClose={() => dispatch(selectFormulario(null))}
-          onSave={handleSaveFormulario} // 🔹 Aquí conectamos la función de guardado
+          onSave={handleSaveFormulario}
         />
       ) : (
         <div className={styles.list}>
@@ -61,6 +58,7 @@ const FormularioTable = () => {
                 <th>ID</th>
                 <th>Email</th>
                 <th>Fecha de Creación</th>
+                <th>Fecha Reunión</th>
                 <th>Leídos</th>
                 <th>Acciones</th>
               </tr>
@@ -71,6 +69,11 @@ const FormularioTable = () => {
                   <td>{formulario.id_numerico}</td>
                   <td>{formulario.email}</td>
                   <td>{new Date(formulario.createdAt).toLocaleString()}</td>
+                  <td>
+                    {formulario.scheduleDate
+                      ? new Date(formulario.scheduleDate).toLocaleString()
+                      : 'No concretada'}
+                  </td>
                   <td>
                     {formulario.read ? (
                       <span style={{ color: 'green' }}>Leído</span>
