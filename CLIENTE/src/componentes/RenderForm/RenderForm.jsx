@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import styles from './RenderForm.module.css';
+import Modal from "../Modal/Modal.jsx";
+import CalendarScheduler from "./CalendarScheduler/CalendarScheduler.jsx";
 
 const RenderForm = ({ formulario, onClose, onSave }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ ...formulario });
+  const [showCalendar, setShowCalendar] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,10 +57,13 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
     setIsEditing(false);
   };
 
-  // 🔹 NUEVA FUNCIÓN: abrir modal o componente de reunión
+  // 🔹 Abrir / Cerrar el modal del calendario
   const handleOpenMeeting = () => {
-    console.log("Abrir componente de reunión para:", formData.email);
-    // más adelante: setShowMeetingModal(true)
+    if (isEditing) setShowCalendar(true);
+  };
+
+  const handleCloseCalendar = () => {
+    setShowCalendar(false);
   };
 
   const formatLabel = (key) => {
@@ -101,7 +107,7 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
 
       <h3 className={styles.formTitle}>Detalles del Formulario</h3>
 
-      {/* 🔹 Sección: Datos Generales */}
+      {/* 🔹 Datos Generales */}
       <div className={styles.card}>
         <h4 className={styles.sectionTitle}>Datos Generales</h4>
         <div className={styles.formGrid}>
@@ -146,7 +152,7 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
         </div>
       </div>
 
-      {/* 🔹 Sección: Postulantes */}
+      {/* 🔹 Postulantes */}
       <div className={styles.card}>
         <h4 className={styles.sectionTitle}>Postulantes</h4>
         <div className={styles.contenedorPostulantes}>
@@ -195,7 +201,7 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
         </div>
       </div>
 
-      {/* 🔹 Sección: Notas */}
+      {/* 🔹 Notas */}
       <div className={styles.card}>
         <h4 className={styles.sectionTitle}>Notas</h4>
         <div className={styles.formGrid}>
@@ -212,51 +218,49 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
         </div>
       </div>
 
-{/* 🔹 Sección: Reunión */}
-<div className={styles.card}>
-  <h4 className={styles.sectionTitle}>Reunión</h4>
-  <div className={styles.formGrid}>
-    <div className={styles.formField}>
-      <p>Puedes agendar una reunión relacionada con este formulario.</p>
+      {/* 🔹 Reunión */}
+      <div className={styles.card}>
+        <h4 className={styles.sectionTitle}>Reunión</h4>
+        <div className={styles.formGrid}>
+          <div className={styles.formField}>
+            <p>Puedes agendar una reunión relacionada con este formulario.</p>
 
-      {/* Estado de la reunión */}
-      {formData.scheduled ? (
-        <div className={styles.meetingInfo}>
-          <p>
-            <strong>📅 Reunión agendada:</strong>{" "}
-            {new Date(formData.scheduleDate).toLocaleString("es-AR", {
-              dateStyle: "full",
-              timeStyle: "short",
-            })}
-          </p>
-          <button
-            onClick={handleOpenMeeting}
-            className={`${styles.buttonSave} ${styles.secondaryButton}`}
-            disabled={!isEditing}
-            title={!isEditing ? "Habilita la edición para reprogramar" : ""}
-          >
-            Reprogramar reunión 🔁
-          </button>
+            {formData.scheduled ? (
+              <div className={styles.meetingInfo}>
+                <p>
+                  <strong>📅 Reunión agendada:</strong>{" "}
+                  {new Date(formData.scheduleDate).toLocaleString("es-AR", {
+                    dateStyle: "full",
+                    timeStyle: "short",
+                  })}
+                </p>
+                <button
+                  onClick={handleOpenMeeting}
+                  className={`${styles.buttonSave} ${styles.secondaryButton}`}
+                  disabled={!isEditing}
+                  title={!isEditing ? "Habilita la edición para reprogramar" : ""}
+                >
+                  Reprogramar reunión 🔁
+                </button>
+              </div>
+            ) : (
+              <div className={styles.meetingInfo}>
+                <p><strong>⚠️ No hay reunión agendada.</strong></p>
+                <button
+                  onClick={handleOpenMeeting}
+                  className={styles.buttonSave}
+                  disabled={!isEditing}
+                  title={!isEditing ? "Habilita la edición para agendar" : ""}
+                >
+                  Agendar reunión 📅
+                </button>
+              </div>
+            )}
+          </div>
         </div>
-      ) : (
-        <div className={styles.meetingInfo}>
-          <p><strong>⚠️ No hay reunión agendada.</strong></p>
-          <button
-            onClick={handleOpenMeeting}
-            className={styles.buttonSave}
-            disabled={!isEditing}
-            title={!isEditing ? "Habilita la edición para agendar" : ""}
-          >
-            Agendar reunión 📅
-          </button>
-        </div>
-      )}
-    </div>
-  </div>
-</div>
+      </div>
 
-
-      {/* 🔹 Sección: Estado y edición */}
+      {/* 🔹 Estado y Edición */}
       <div className={styles.card}>
         <h4 className={styles.sectionTitle}>Estado y Edición</h4>
         <div className={styles.estado}>
@@ -292,6 +296,11 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
           </button>
         </div>
       </div>
+
+      {/* 🔹 Modal con el calendario */}
+      <Modal isOpen={showCalendar} onClose={handleCloseCalendar}>
+        <CalendarScheduler onClose={handleCloseCalendar} />
+      </Modal>
     </div>
   );
 };

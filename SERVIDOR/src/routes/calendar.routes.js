@@ -1,19 +1,22 @@
 const { Router } = require("express");
 const router = Router();
-const { crearEvento } = require("../services/calendarService.js");
+const { crearEvento, enviarCorreoEvento } = require("../services/calendarService.js");
+const { Formulario } = require("../db.js");
+const { emitEvent } = require("../services/socketService.js");
+const { obtenerTodosFormularios } = require("../services/formularioService.js");
 
 // POST /calendar/event
 router.post("/event", async (req, res) => {
-  const { summary, description, start, end, attendees } = req.body;
+  const { formularioId, summary, description, start, end, attendees } = req.body;
 
-  if (!summary || !start || !end) {
+  if (!formularioId || !summary || !start || !end) {
     return res
       .status(400)
-      .json({ error: "Faltan datos obligatorios (summary, start, end)" });
+      .json({ error: "Faltan datos obligatorios (formularioId, summary, start, end)" });
   }
 
   try {
-    // 🧠 attendees puede ser un array de emails, ej: ["juan@gmail.com", "maria@gmail.com"]
+    // 1️⃣ Crear evento en Google Calendar
     const evento = await crearEvento({
       summary,
       description,
@@ -22,18 +25,54 @@ router.post("/event", async (req, res) => {
       attendees,
     });
 
+    // 2️⃣ Enviar correo a los asistentes
+    try {
+      await enviarCorreoEvento({
+        attendees,
+        summary,
+        description,
+        start,
+        end,
+        calendarLink: `https://www.google.com/calendar/event?eid=${evento.id}`,
+      });
+    } catch (mailErr) {
+      console.error("Error enviando correo a los asistentes:", mailErr);
+    }
+
+    // 3️⃣ Actualizar formulario en la base de datos
+    const formulario = await Formulario.findByPk(formularioId);
+    if (formulario) {
+      await formulario.update({
+        scheduled: true,
+        scheduleDate: start.dateTime || start,
+      });
+    }
+
+// 4️⃣ Obtener todos los formularios actualizados
+const formularios = await obtenerTodosFormularios();
+
+// 5️⃣ Crear alerta con mismo formato que tu otro endpoint
+const alerta = {
+  tipo: "success",
+  mensaje: `Se agendó la reunión para el formulario ${formularioId}`,
+};
+
+// 6️⃣ Emitir evento 'formulario-alerta' con alerta y formularios
+emitEvent("formulario-alerta", { alerta, formularios });
+
+
     res.status(201).json({
-      message: "✅ Evento creado correctamente con alerta e invitaciones enviadas",
+      message: "✅ Evento creado, correo enviado, formulario actualizado y sockets emitidos",
       event: evento,
     });
   } catch (err) {
-    res
-      .status(500)
-      .json({ error: "No se pudo crear el evento", details: err.message });
+    console.error(err);
+    res.status(500).json({ error: "No se pudo crear el evento", details: err.message });
   }
 });
 
 module.exports = router;
+
 
 /**
  
