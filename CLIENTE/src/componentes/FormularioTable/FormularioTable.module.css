@@ -2,7 +2,7 @@
 .tableContainer {
   width: 90%;
   padding: 20px;
-  background-color: #f8f9fa; /* Fondo claro para resaltar la tabla */
+  background-color: transparent; /* Fondo claro para resaltar la tabla */
   border-radius: 10px;
   display: flex;
   justify-content: center;
