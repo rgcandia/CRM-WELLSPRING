@@ -41,63 +41,63 @@ export default function CalendarScheduler({ onClose }) {
     return datetime.endsWith(":00") ? datetime + "-03:00" : datetime + ":00-03:00";
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!formularioId) {
-      alert("❌ No se seleccionó ningún formulario");
-      return;
-    }
+  if (!formularioId) {
+    alert("❌ No se seleccionó ningún formulario");
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    const allAttendees = [
-      mainEmail,
-      ...formData.extraAttendees
-        .split(",")
-        .map((email) => email.trim())
-        .filter((e) => e && e !== mainEmail),
-    ].map((email) => ({ email }));
+  const allAttendees = [
+    mainEmail,
+    ...formData.extraAttendees
+      .split(",")
+      .map((email) => email.trim())
+      .filter((e) => e && e !== mainEmail),
+  ].map((email) => ({ email }));
 
-    const evento = {
-      formularioId,
-      summary: formData.summary.trim(),
-      description: formData.description.trim(),
-      start: {
-        dateTime: formatDateTime(formData.start),
-        timeZone: "America/Argentina/Buenos_Aires",
-      },
-      end: {
-        dateTime: formatDateTime(formData.end),
-        timeZone: "America/Argentina/Buenos_Aires",
-      },
-      attendees: allAttendees,
-    };
-
-    try {
-      const apiBase = import.meta.env.VITE_API_URL || "http://localhost:4001";
-      const apiUrl = `${apiBase}/calendar/event`;
-
-      const res = await fetch(apiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(evento),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) throw new Error(data.error || `Error HTTP ${res.status}`);
-
-      // ✅ Si todo OK, cerramos modal
-      onClose();
-    } catch (error) {
-      console.error("Error creando evento:", error);
-      alert("❌ No se pudo crear la reunión: " + error.message);
-      // El modal NO se cierra, el botón se vuelve a habilitar
-    } finally {
-      setLoading(false);
-    }
+  const evento = {
+    formularioId,
+    summary: formData.summary.trim(),
+    description: formData.description.trim(),
+    start: {
+      dateTime: formatDateTime(formData.start),
+      timeZone: "America/Argentina/Buenos_Aires",
+    },
+    end: {
+      dateTime: formatDateTime(formData.end),
+      timeZone: "America/Argentina/Buenos_Aires",
+    },
+    attendees: allAttendees,
+    // ✅ Enviar id_calendario si ya existe en data, sino null
+    id_calendario: selectedFormulario?.data?.id_calendario || null,
   };
+
+  try {
+    const apiBase = import.meta.env.VITE_API_URL || "http://localhost:4001";
+    const apiUrl = `${apiBase}/calendar/event`;
+
+    const res = await fetch(apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(evento),
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || `Error HTTP ${res.status}`);
+
+    onClose();
+  } catch (error) {
+    console.error("Error creando o actualizando evento:", error);
+    alert("❌ No se pudo procesar la reunión: " + error.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className={styles.overlay}>

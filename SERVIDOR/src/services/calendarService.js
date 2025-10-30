@@ -120,6 +120,7 @@ export async function editarEvento({ eventId, summary, description, start, end, 
     .map(a => (typeof a === "string" ? a.trim() : a.email))
     .filter(email => email && email.includes("@"));
 
+  // 📅 Evento a actualizar (sin attendees)
   const event = {
     summary,
     description: description || "",
@@ -131,7 +132,6 @@ export async function editarEvento({ eventId, summary, description, start, end, 
       dateTime: end.dateTime || end,
       timeZone: end.timeZone || "America/Argentina/Buenos_Aires",
     },
-    attendees: validEmails.map(email => ({ email })),
   };
 
   const calendarId =
@@ -143,7 +143,7 @@ export async function editarEvento({ eventId, summary, description, start, end, 
       calendarId,
       eventId,
       resource: event,
-      sendUpdates: "all", // ✅ notifica a los invitados
+      sendUpdates: "none", // ❌ no intenta notificar invitados
     });
     eventoActualizado = res.data;
     console.log("✅ Evento actualizado en el calendario:", eventoActualizado.htmlLink);
@@ -152,7 +152,7 @@ export async function editarEvento({ eventId, summary, description, start, end, 
     throw new Error(error.message || "No se pudo actualizar el evento");
   }
 
-  // ✉️ Enviar correo de actualización
+  // ✉️ Enviar correo de actualización manualmente
   try {
     const subject = `📌 Actualización de reunión: ${summary}`;
     const formattedStart = new Date(start.dateTime || start).toLocaleString("es-AR", {
