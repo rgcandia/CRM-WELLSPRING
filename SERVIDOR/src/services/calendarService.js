@@ -109,3 +109,83 @@ export async function crearEvento({ summary, description, start, end, attendees 
 
   return eventoCreado;
 }
+
+
+// 🧠 FUNCIÓN PARA EDITAR EVENTO + ENVIAR CORREO
+export async function editarEvento({ eventId, summary, description, start, end, attendees = [] }) {
+  if (!eventId) throw new Error("Se requiere eventId para actualizar el evento");
+
+  // 🔹 Normalizar correos de asistentes
+  const validEmails = attendees
+    .map(a => (typeof a === "string" ? a.trim() : a.email))
+    .filter(email => email && email.includes("@"));
+
+  const event = {
+    summary,
+    description: description || "",
+    start: {
+      dateTime: start.dateTime || start,
+      timeZone: start.timeZone || "America/Argentina/Buenos_Aires",
+    },
+    end: {
+      dateTime: end.dateTime || end,
+      timeZone: end.timeZone || "America/Argentina/Buenos_Aires",
+    },
+    attendees: validEmails.map(email => ({ email })),
+  };
+
+  const calendarId =
+    "efc91cd9a940bd35369263ab4151770f6c1a17d76989d3eddd0cb110cd424995@group.calendar.google.com";
+
+  let eventoActualizado;
+  try {
+    const res = await calendar.events.update({
+      calendarId,
+      eventId,
+      resource: event,
+      sendUpdates: "all", // ✅ notifica a los invitados
+    });
+    eventoActualizado = res.data;
+    console.log("✅ Evento actualizado en el calendario:", eventoActualizado.htmlLink);
+  } catch (error) {
+    console.error("Error actualizando evento:", error.response?.data || error.message);
+    throw new Error(error.message || "No se pudo actualizar el evento");
+  }
+
+  // ✉️ Enviar correo de actualización
+  try {
+    const subject = `📌 Actualización de reunión: ${summary}`;
+    const formattedStart = new Date(start.dateTime || start).toLocaleString("es-AR", {
+      dateStyle: "full",
+      timeStyle: "short",
+    });
+    const formattedEnd = new Date(end.dateTime || end).toLocaleString("es-AR", {
+      dateStyle: "full",
+      timeStyle: "short",
+    });
+
+    const htmlBody = `
+      <h2>📅 Actualización de reunión</h2>
+      <p><b>Tema:</b> ${summary}</p>
+      <p><b>Descripción:</b> ${description || "Sin descripción"}</p>
+      <p><b>Inicio:</b> ${formattedStart}</p>
+      <p><b>Fin:</b> ${formattedEnd}</p>
+      <p><a href="${eventoActualizado.htmlLink}" target="_blank">Ver evento en Google Calendar</a></p>
+    `;
+
+    if (validEmails.length > 0) {
+      await transporter.sendMail({
+        from: `"Agenda BOT" <${process.env.EMAIL_USER}>`,
+        to: validEmails.join(","),
+        subject,
+        html: htmlBody,
+      });
+
+      console.log("✅ Correos de actualización enviados a:", validEmails.join(", "));
+    }
+  } catch (error) {
+    console.error("❌ Error enviando correos de actualización:", error.message);
+  }
+
+  return eventoActualizado;
+}

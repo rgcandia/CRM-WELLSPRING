@@ -20,13 +20,20 @@ router.post("/event", async (req, res) => {
     const evento = await crearEvento({ summary, description, start, end, attendees });
 
     // 2️⃣ Actualizar formulario en la base de datos
-    const formulario = await Formulario.findByPk(formularioId);
-    if (formulario) {
-      await formulario.update({
-        scheduled: true,
-        scheduleDate: start.dateTime || start,
-      });
-    }
+ // formularioId viene del body
+const formulario = await Formulario.findByPk(formularioId);
+
+if (formulario) {
+  // Actualizamos scheduled, scheduleDate y agregamos id_calendario en data
+  await formulario.update({
+    scheduled: true,
+    scheduleDate: start.dateTime || start,
+    data: {
+      ...formulario.data,       // mantenemos los datos existentes
+      id_calendario: evento.id, // guardamos el id de Google Calendar
+    },
+  });
+}
 
     // 3️⃣ Obtener todos los formularios actualizados
     const formularios = await obtenerTodosFormularios();
