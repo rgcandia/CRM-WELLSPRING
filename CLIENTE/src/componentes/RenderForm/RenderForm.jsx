@@ -54,6 +54,12 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
     setIsEditing(false);
   };
 
+  // 🔹 NUEVA FUNCIÓN: abrir modal o componente de reunión
+  const handleOpenMeeting = () => {
+    console.log("Abrir componente de reunión para:", formData.email);
+    // más adelante: setShowMeetingModal(true)
+  };
+
   const formatLabel = (key) => {
     const map = {
       nombreApellido: "Nombre y Apellido",
@@ -154,35 +160,32 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
                   return (
                     <div key={key} className={styles.formField}>
                       <label>{formatLabel(key)}:</label>
-                  {key === "fechaNacimiento" ? (
-  isEditing ? (
-    // Cuando estás editando, usás el selector de fecha (type="date")
-    <input
-      type="date"
-      value={value ? value.split("/").reverse().join("-") : ""} 
-      onChange={(e) => handlePostulanteChange(e, index, key)}
-      disabled={!isEditing}
-      className={styles.formInput}
-    />
-  ) : (
-    // Cuando no estás editando, mostrás la fecha formateada legiblemente
-    <input
-      type="text"
-      value={value ? new Date(value).toLocaleDateString("es-AR") : ""}
-      disabled
-      className={styles.formInput}
-    />
-  )
-) : (
-  <input
-    type="text"
-    value={value ?? ""}
-    onChange={(e) => handlePostulanteChange(e, index, key)}
-    disabled={!isEditing}
-    className={styles.formInput}
-  />
-)}
-
+                      {key === "fechaNacimiento" ? (
+                        isEditing ? (
+                          <input
+                            type="date"
+                            value={value ? value.split("/").reverse().join("-") : ""}
+                            onChange={(e) => handlePostulanteChange(e, index, key)}
+                            disabled={!isEditing}
+                            className={styles.formInput}
+                          />
+                        ) : (
+                          <input
+                            type="text"
+                            value={value ? new Date(value).toLocaleDateString("es-AR") : ""}
+                            disabled
+                            className={styles.formInput}
+                          />
+                        )
+                      ) : (
+                        <input
+                          type="text"
+                          value={value ?? ""}
+                          onChange={(e) => handlePostulanteChange(e, index, key)}
+                          disabled={!isEditing}
+                          className={styles.formInput}
+                        />
+                      )}
                     </div>
                   );
                 })}
@@ -191,8 +194,6 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
           ))}
         </div>
       </div>
-
-
 
       {/* 🔹 Sección: Notas */}
       <div className={styles.card}>
@@ -211,13 +212,55 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
         </div>
       </div>
 
+{/* 🔹 Sección: Reunión */}
+<div className={styles.card}>
+  <h4 className={styles.sectionTitle}>Reunión</h4>
+  <div className={styles.formGrid}>
+    <div className={styles.formField}>
+      <p>Puedes agendar una reunión relacionada con este formulario.</p>
+
+      {/* Estado de la reunión */}
+      {formData.scheduled ? (
+        <div className={styles.meetingInfo}>
+          <p>
+            <strong>📅 Reunión agendada:</strong>{" "}
+            {new Date(formData.scheduleDate).toLocaleString("es-AR", {
+              dateStyle: "full",
+              timeStyle: "short",
+            })}
+          </p>
+          <button
+            onClick={handleOpenMeeting}
+            className={`${styles.buttonSave} ${styles.secondaryButton}`}
+            disabled={!isEditing}
+            title={!isEditing ? "Habilita la edición para reprogramar" : ""}
+          >
+            Reprogramar reunión 🔁
+          </button>
+        </div>
+      ) : (
+        <div className={styles.meetingInfo}>
+          <p><strong>⚠️ No hay reunión agendada.</strong></p>
+          <button
+            onClick={handleOpenMeeting}
+            className={styles.buttonSave}
+            disabled={!isEditing}
+            title={!isEditing ? "Habilita la edición para agendar" : ""}
+          >
+            Agendar reunión 📅
+          </button>
+        </div>
+      )}
+    </div>
+  </div>
+</div>
 
 
       {/* 🔹 Sección: Estado y edición */}
       <div className={styles.card}>
         <h4 className={styles.sectionTitle}>Estado y Edición</h4>
         <div className={styles.estado}>
-             <div className={styles.sliderContainer}>
+          <div className={styles.sliderContainer}>
             <label htmlFor="editSlider" className={styles.sliderLabel}>Habilitar Edición:</label>
             <input
               type="checkbox"
@@ -227,6 +270,7 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
               onChange={handleSliderChange}
             />
           </div>
+
           <div className={styles.formCheckboxWrapper}>
             <input
               type="checkbox"
@@ -240,8 +284,6 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
             />
             <label htmlFor="read">Leído</label>
           </div>
-
-       
         </div>
 
         <div className={styles.actions}>

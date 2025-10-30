@@ -222,3 +222,26 @@
   justify-content:space-between;
   gap: 50px;
 }
+
+
+/** Card reunión*/
+
+.meetingInfo {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  margin-top: 0.5rem;
+}
+
+.secondaryButton {
+  background-color: #6b7280; /* gris */
+}
+
+.secondaryButton:hover {
+  background-color: #4b5563;
+}
