@@ -192,6 +192,28 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
         </div>
       </div>
 
+
+
+      {/* 🔹 Sección: Notas */}
+      <div className={styles.card}>
+        <h4 className={styles.sectionTitle}>Notas</h4>
+        <div className={styles.formGrid}>
+          <div className={styles.formField}>
+            <label>Notas:</label>
+            <textarea
+              name="notes"
+              value={formData.notes || ""}
+              onChange={handleChange}
+              disabled={!isEditing}
+              className={styles.textArea}
+              placeholder="Escribe aquí tus observaciones o comentarios..."
+            />
+          </div>
+        </div>
+      </div>
+
+
+
       {/* 🔹 Sección: Estado y edición */}
       <div className={styles.card}>
         <h4 className={styles.sectionTitle}>Estado y Edición</h4>
