@@ -199,7 +199,6 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
         <h4 className={styles.sectionTitle}>Notas</h4>
         <div className={styles.formGrid}>
           <div className={styles.formField}>
-            <label>Notas:</label>
             <textarea
               name="notes"
               value={formData.notes || ""}
