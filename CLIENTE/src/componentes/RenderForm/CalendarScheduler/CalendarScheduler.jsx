@@ -23,7 +23,6 @@ export default function CalendarScheduler({ onClose }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Convierte "YYYY-MM-DDTHH:mm" → "YYYY-MM-DDTHH:mm:00-03:00"
   const formatDateTime = (datetime) => {
     if (!datetime) return "";
     return datetime.endsWith(":00") ? datetime + "-03:00" : datetime + ":00-03:00";
@@ -37,7 +36,6 @@ export default function CalendarScheduler({ onClose }) {
       return;
     }
 
-    // 🔹 Construir lista de asistentes con objeto { email }
     const allAttendees = [
       mainEmail,
       ...formData.extraAttendees
@@ -58,7 +56,7 @@ export default function CalendarScheduler({ onClose }) {
         dateTime: formatDateTime(formData.end),
         timeZone: "America/Argentina/Buenos_Aires",
       },
-      attendees: allAttendees, // 🔹 ahora es array de objetos
+      attendees: allAttendees,
     };
 
     try {
@@ -77,7 +75,8 @@ export default function CalendarScheduler({ onClose }) {
         throw new Error(data.error || `Error HTTP ${res.status}`);
       }
 
-      alert("✅ Reunión creada correctamente y correo enviado");
+      // ✅ Cerrar modal y limpiar formulario
+      onClose();
       setFormData({
         summary: "",
         description: "",
@@ -85,6 +84,7 @@ export default function CalendarScheduler({ onClose }) {
         end: "",
         extraAttendees: "",
       });
+
     } catch (error) {
       console.error("Error creando evento:", error);
       alert("❌ No se pudo crear la reunión: " + error.message);
@@ -99,7 +99,6 @@ export default function CalendarScheduler({ onClose }) {
           <button onClick={onClose} className={styles.closeButton}>✖</button>
         </div>
 
-        {/* Google Calendar Embed */}
         <iframe
           src={calendarSrc}
           width="100%"
@@ -109,7 +108,6 @@ export default function CalendarScheduler({ onClose }) {
           title="Google Calendar"
         ></iframe>
 
-        {/* Formulario de reunión */}
         <form onSubmit={handleSubmit} className={styles.form}>
           <input
             type="text"
