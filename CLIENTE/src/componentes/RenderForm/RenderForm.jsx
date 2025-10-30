@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './RenderForm.module.css';
 import Modal from "../Modal/Modal.jsx";
 import CalendarScheduler from "./CalendarScheduler/CalendarScheduler.jsx";
@@ -7,6 +7,11 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ ...formulario });
   const [showCalendar, setShowCalendar] = useState(false);
+
+  // 🔹 Sincroniza formData cada vez que cambie el formulario de Redux
+  useEffect(() => {
+    setFormData({ ...formulario });
+  }, [formulario]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,7 +62,6 @@ const RenderForm = ({ formulario, onClose, onSave }) => {
     setIsEditing(false);
   };
 
-  // 🔹 Abrir / Cerrar el modal del calendario
   const handleOpenMeeting = () => {
     if (isEditing) setShowCalendar(true);
   };

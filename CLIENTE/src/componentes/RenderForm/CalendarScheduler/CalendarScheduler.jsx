@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styles from "./CalendarScheduler.module.css";
 
@@ -18,6 +18,19 @@ export default function CalendarScheduler({ onClose }) {
     extraAttendees: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
+  // Resetea formData cuando cambia selectedFormulario
+  useEffect(() => {
+    setFormData({
+      summary: "",
+      description: "",
+      start: "",
+      end: "",
+      extraAttendees: "",
+    });
+  }, [selectedFormulario]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -35,6 +48,8 @@ export default function CalendarScheduler({ onClose }) {
       alert("❌ No se seleccionó ningún formulario");
       return;
     }
+
+    setLoading(true);
 
     const allAttendees = [
       mainEmail,
@@ -71,23 +86,16 @@ export default function CalendarScheduler({ onClose }) {
 
       const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(data.error || `Error HTTP ${res.status}`);
-      }
+      if (!res.ok) throw new Error(data.error || `Error HTTP ${res.status}`);
 
-      // ✅ Cerrar modal y limpiar formulario
+      // ✅ Si todo OK, cerramos modal
       onClose();
-      setFormData({
-        summary: "",
-        description: "",
-        start: "",
-        end: "",
-        extraAttendees: "",
-      });
-
     } catch (error) {
       console.error("Error creando evento:", error);
       alert("❌ No se pudo crear la reunión: " + error.message);
+      // El modal NO se cierra, el botón se vuelve a habilitar
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -96,7 +104,9 @@ export default function CalendarScheduler({ onClose }) {
       <div className={styles.container}>
         <div className={styles.header}>
           <h3>📅 Agendar reunión</h3>
-          <button onClick={onClose} className={styles.closeButton}>✖</button>
+          <button onClick={onClose} className={styles.closeButton} disabled={loading}>
+            ✖
+          </button>
         </div>
 
         <iframe
@@ -117,6 +127,7 @@ export default function CalendarScheduler({ onClose }) {
             onChange={handleChange}
             required
             className={styles.formInput}
+            disabled={loading}
           />
 
           <textarea
@@ -125,6 +136,7 @@ export default function CalendarScheduler({ onClose }) {
             value={formData.description}
             onChange={handleChange}
             className={styles.textArea}
+            disabled={loading}
           />
 
           <div className={styles.row}>
@@ -137,6 +149,7 @@ export default function CalendarScheduler({ onClose }) {
                 onChange={handleChange}
                 required
                 className={styles.formInput}
+                disabled={loading}
               />
             </div>
             <div>
@@ -148,6 +161,7 @@ export default function CalendarScheduler({ onClose }) {
                 onChange={handleChange}
                 required
                 className={styles.formInput}
+                disabled={loading}
               />
             </div>
           </div>
@@ -167,12 +181,22 @@ export default function CalendarScheduler({ onClose }) {
               value={formData.extraAttendees}
               onChange={handleChange}
               className={styles.formInput}
+              disabled={loading}
             />
           </div>
 
-          <button type="submit" className={styles.submitButton}>
-            Agendar reunión 📆
-          </button>
+         <button
+  type="submit"
+  className={styles.submitButton}
+  disabled={loading}
+>
+  {loading ? (
+    <div className={styles.spinner}></div>
+  ) : (
+    "Agendar reunión 📆"
+  )}
+</button>
+
         </form>
       </div>
     </div>
