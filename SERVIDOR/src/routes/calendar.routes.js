@@ -1,11 +1,11 @@
 const { Router } = require("express");
 const router = Router();
-const { crearEvento } = require("../services/calendarService.js"); // solo importar crearEvento
+const { crearEvento, editarEvento } = require("../services/calendarService.js");
 const { Formulario } = require("../db.js");
 const { emitEvent } = require("../services/socketService.js");
 const { obtenerTodosFormularios } = require("../services/formularioService.js");
 
-// POST /calendar/event
+// POST /calendar/event → crea o edita según exista id_calendario
 router.post("/event", async (req, res) => {
   const { formularioId, summary, description, start, end, attendees } = req.body;
 
@@ -16,48 +16,58 @@ router.post("/event", async (req, res) => {
   }
 
   try {
-    // 1️⃣ Crear evento en Google Calendar y enviar correos
-    const evento = await crearEvento({ summary, description, start, end, attendees });
+    // 1️⃣ Buscar el formulario
+    const formulario = await Formulario.findByPk(formularioId);
+    if (!formulario) return res.status(404).json({ error: "Formulario no encontrado" });
 
-    // 2️⃣ Actualizar formulario en la base de datos
- // formularioId viene del body
-const formulario = await Formulario.findByPk(formularioId);
+    let evento;
+    const esEdicion = formulario.data?.id_calendario; // si existe id_calendario → editamos
+    if (esEdicion) {
+      // 2️⃣ Editar evento existente
+      evento = await editarEvento({
+        eventId: formulario.data.id_calendario,
+        summary,
+        description,
+        start,
+        end,
+        attendees,
+      });
+    } else {
+      // 2️⃣ Crear nuevo evento
+      evento = await crearEvento({ summary, description, start, end, attendees });
+    }
 
-if (formulario) {
-  // Actualizamos scheduled, scheduleDate y agregamos id_calendario en data
-  await formulario.update({
-    scheduled: true,
-    scheduleDate: start.dateTime || start,
-    data: {
-      ...formulario.data,       // mantenemos los datos existentes
-      id_calendario: evento.id, // guardamos el id de Google Calendar
-    },
-  });
-}
+    // 3️⃣ Actualizar formulario con id_calendario y fecha
+    await formulario.update({
+      scheduled: true,
+      scheduleDate: start.dateTime || start,
+      data: {
+        ...formulario.data,
+        id_calendario: evento.id, // guarda el id del evento
+      },
+    });
 
-    // 3️⃣ Obtener todos los formularios actualizados
+    // 4️⃣ Obtener todos los formularios actualizados
     const formularios = await obtenerTodosFormularios();
 
-    // 4️⃣ Crear alerta con mismo formato que tu otro endpoint
+    // 5️⃣ Emitir alerta vía socket
     const alerta = {
       tipo: "success",
-      mensaje: `Se agendó la reunión para el formulario ${formularioId}`,
+      mensaje: esEdicion
+        ? `Se actualizó la reunión del formulario ${formularioId}`
+        : `Se agendó la reunión para el formulario ${formularioId}`,
     };
-
-    // 5️⃣ Emitir evento 'formulario-alerta' con alerta y formularios
     emitEvent("formulario-alerta", { alerta, formularios });
 
-    res.status(201).json({
-      message: "✅ Evento creado, correo enviado, formulario actualizado y sockets emitidos",
-      event: evento,
-    });
+    res.status(201).json({ message: "✅ Evento procesado correctamente", event: evento });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "No se pudo crear el evento", details: err.message });
+    res.status(500).json({ error: "No se pudo procesar el evento", details: err.message });
   }
 });
 
 module.exports = router;
+
 
 
 
