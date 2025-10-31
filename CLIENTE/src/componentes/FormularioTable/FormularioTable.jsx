@@ -58,7 +58,7 @@ const FormularioTable = () => {
                 <th>ID</th>
                 <th>Email</th>
                 <th>Fecha de Creación</th>
-                <th>Fecha Reunión</th>
+                <th>Fecha de Reunión</th>
                 <th>Leídos</th>
                 <th>Acciones</th>
               </tr>

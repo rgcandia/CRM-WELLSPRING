@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';  // Importa useDispatch de Redux
 import { uploadFormularios } from './redux/slice';  // Importa la acción de Redux para cargar los formularios
 import Nav from './componentes/Nav/Nav';
+import Dashboard from './componentes/Dashboard/Dashboard.jsx';
 import FormularioTable from './componentes/FormularioTable/FormularioTable';  // Asegúrate de que la ruta esté correcta
 import Sidebar from './componentes/Sidebar/Sidebar';
 import styles from './App.module.css';
@@ -36,7 +37,7 @@ function App() {
       case 'formularios':
         return <FormularioTable />; // Renderiza el FormularioTable cuando se selecciona "formularios"
       case 'dashboard':
-        return <div>Vista del Dashboard</div>; // Placeholder para la vista del dashboard
+        return <Dashboard/>; // Placeholder para la vista del dashboard
       case 'configuracion':
         return <div>Vista de Configuración</div>; // Placeholder para la vista de configuración
       default:
