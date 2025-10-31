@@ -1,10 +1,19 @@
+:root {
+  --color-primario: #142454;
+  --color-secundario: #4a90e2;
+  --color-fondo-claro: #f5f7fb;
+  --blanco: #ffffff;
+  --borde: #e3e7ef;
+  --texto-gris: #6b7280;
+}
+
 .dashboard {
   padding: 2rem;
   background-color: var(--color-fondo-claro);
   min-height: 100vh;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
-/* Título principal */
 .title {
   color: var(--color-primario);
   font-size: 2rem;
@@ -13,7 +22,6 @@
   margin-bottom: 2.5rem;
 }
 
-/* Contenedor general de métricas */
 .statsContainer {
   display: flex;
   flex-wrap: wrap;
@@ -21,61 +29,43 @@
   gap: 2rem;
 }
 
-/* Card individual */
-.statBox {
+/* Tarjetas */
+.card {
   background: var(--blanco);
   border: 1px solid var(--borde);
   border-radius: 16px;
-  padding: 1.8rem 2rem;
-  width: 320px;
+  padding: 2rem;
+  width: 380px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
   text-align: center;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  transition: all 0.25s ease;
 }
 
-.statBox:hover {
+.card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
 }
 
-/* Subtítulo dentro de la card */
-.statBox h2 {
-  color: var(--color-secundario);
-  font-size: 1.2rem;
+.cardTitle {
+  font-size: 1.3rem;
+  color: var(--color-primario);
   font-weight: 600;
   margin-bottom: 0.8rem;
 }
 
-/* Número principal */
 .statNumber {
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: var(--color-primario);
-  margin-bottom: 1.2rem;
+  color: var(--color-secundario);
+  margin-bottom: 1.5rem;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
-  .dashboard {
-    padding: 1.2rem;
-  }
-
-  .title {
-    font-size: 1.7rem;
-  }
-
   .statsContainer {
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
   }
-
-  .statBox {
+  .card {
     width: 90%;
-    padding: 1.5rem;
-  }
-
-  .statNumber {
-    font-size: 2.2rem;
   }
 }
