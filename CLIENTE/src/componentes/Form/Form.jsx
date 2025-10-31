@@ -78,7 +78,7 @@ const esEmailValido = (email) => {
 
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.logo}>
         <img src='/large_interno_wellspring.png' alt='logo del colegio wellspring' />
       </div>
       <h1 className={styles.h1}>Formulario de Admisión</h1>
